@@ -1,0 +1,22 @@
+# =============================================================================
+# Hermes Agent — Main Configuration
+# =============================================================================
+
+model:
+  default: deepseek-chat
+  provider: custom
+  base_url: https://api.deepseek.com/v1
+  fallback_providers: []
+
+terminal:
+  backend: local
+
+agent:
+  max_turns: 15
+
+platform_toolsets:
+  cli:
+    - hermes-cli
+
+approvals:
+  destructive_slash_confirm: false
