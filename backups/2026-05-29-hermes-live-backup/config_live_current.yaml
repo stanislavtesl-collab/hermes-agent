@@ -16,3 +16,17 @@ fallback_providers:
     model: qwen/qwen3.7-max
 approvals:
   destructive_slash_confirm: true
+platforms:
+  telegram:
+    allow_admin_from:
+      - "534151570"
+    group_allow_admin_from:
+      - "534151570"
+    user_allowed_commands:
+      - help
+      - whoami
+      - status
+    group_user_allowed_commands:
+      - help
+      - whoami
+      - status

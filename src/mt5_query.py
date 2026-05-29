@@ -1,161 +1,139 @@
-"""
-Hermes Agent — MetaTrader 5 Client
-====================================
-Connects to a locally running MetaTrader 5 terminal (no password required —
-``mt5.initialize()`` discovers the running instance).
-
-Provides:
-    - Account info (balance, equity, margin, etc.)
-    - Open positions
-    - Current price (bid/ask)
-    - Historical bars (OHLCV)
-
-Requires: MetaTrader 5 terminal installed and logged into a trading account.
-"""
-
-import logging
-from typing import Any, Dict, List, Optional
-
-import numpy as np
-
-logger = logging.getLogger(__name__)
-
-# ---------------------------------------------------------------------------
-# Connection management
-# ---------------------------------------------------------------------------
-
-_initialized: bool = False
+#!/usr/bin/env python3
+"""MT5 query tool."""
+import json
+import sys
+from datetime import datetime
 
 
-def _ensure_connected() -> None:
-    """Lazy-initialize MT5 connection.  Call before any MT5 operation."""
-    global _initialized
-    if _initialized:
-        return
+def _print(obj):
+    print(json.dumps(obj, ensure_ascii=False))
 
-    import MetaTrader5 as mt5  # type: ignore
 
+def _safe_int(v, default=0):
+    try:
+        return int(str(v).strip())
+    except Exception:
+        return default
+
+
+def init():
+    import MetaTrader5 as mt5
     if not mt5.initialize():
-        error_code = mt5.last_error()
-        raise ConnectionError(
-            f"MT5 initialize() failed. "
-            f"Is MetaTrader 5 terminal running and logged in? "
-            f"Error: ({error_code[0]}) {error_code[1]}"
-        )
-
-    _initialized = True
-    logger.info("MT5 connected — version %s", mt5.version())
+        _print({"error": f"MT5 init failed: {mt5.last_error()}"})
+        sys.exit(1)
+    return mt5
 
 
-def shutdown() -> None:
-    """Explicitly shut down the MT5 connection."""
-    global _initialized
-    if not _initialized:
-        return
-
-    import MetaTrader5 as mt5  # type: ignore
-
-    mt5.shutdown()
-    _initialized = False
-    logger.info("MT5 connection closed.")
+def _normalize_symbol_name(value):
+    return "".join(ch for ch in (value or "").upper() if ch.isalnum())
 
 
-# ---------------------------------------------------------------------------
-# Public API
-# ---------------------------------------------------------------------------
+def _resolve_symbol(mt5, symbol):
+    requested = (symbol or "").strip()
+    if not requested:
+        return None, {"error": "symbol is required"}
 
-def account_info() -> Dict[str, Any]:
-    """Return account summary.
+    # Fast path: exact symbol is available.
+    try:
+        if mt5.symbol_info(requested) is not None:
+            mt5.symbol_select(requested, True)
+            return requested, None
+    except Exception:
+        pass
 
-    Returns:
-        Dict with keys: login, server, balance, equity, margin, margin_free,
-        currency, leverage, etc.  Empty dict on failure.
-    """
-    _ensure_connected()
-    import MetaTrader5 as mt5  # type: ignore
+    wanted = _normalize_symbol_name(requested)
+    alias_map = {
+        "XAUUSD": ("GOLD", "XAUUSD", "XAUUSDm", "XAUUSD.a"),
+        "XAGUSD": ("SILVER", "XAGUSD", "XAGUSDm", "XAGUSD.a"),
+    }
+    for alias in alias_map.get(wanted, ()):
+        try:
+            if mt5.symbol_info(alias) is not None:
+                mt5.symbol_select(alias, True)
+                return alias, None
+        except Exception:
+            pass
 
-    info = mt5.account_info()
-    if info is None:
-        error_code = mt5.last_error()
-        raise RuntimeError(
-            f"MT5 account_info() failed. Error: ({error_code[0]}) {error_code[1]}"
-        )
-    return info._asdict()
+    # Fallback: search by normalized prefix/contains (handles broker suffixes).
+    all_symbols = mt5.symbols_get()
+    if not all_symbols:
+        # Last fallback: derive symbol from open positions aliases.
+        try:
+            positions = mt5.positions_get() or []
+            pos_symbols = sorted({str(p.symbol).strip() for p in positions if getattr(p, "symbol", None)})
+            for s in pos_symbols:
+                n = _normalize_symbol_name(s)
+                if n == wanted or n.startswith(wanted):
+                    mt5.symbol_select(s, True)
+                    return s, None
+                if wanted == "XAUUSD" and n == "GOLD":
+                    mt5.symbol_select(s, True)
+                    return s, None
+                if wanted == "XAGUSD" and n == "SILVER":
+                    mt5.symbol_select(s, True)
+                    return s, None
+        except Exception:
+            pass
+        return None, {"error": f"Symbol {requested} not found", "mt5_error": mt5.last_error()}
+
+    if not wanted:
+        return None, {"error": f"Symbol {requested} not found", "mt5_error": mt5.last_error()}
+
+    def score(name):
+        n = _normalize_symbol_name(name)
+        if n == wanted:
+            return (0, len(name))
+        if n.startswith(wanted):
+            return (1, len(name))
+        if wanted in n:
+            return (2, len(name))
+        return (9, len(name))
+
+    ranked = sorted((s.name for s in all_symbols), key=score)
+    candidates = [n for n in ranked if score(n)[0] < 9]
+    if not candidates:
+        return None, {"error": f"Symbol {requested} not found", "mt5_error": mt5.last_error()}
+
+    selected = candidates[0]
+    try:
+        mt5.symbol_select(selected, True)
+    except Exception:
+        pass
+    return selected, None
 
 
-def open_positions(symbol: Optional[str] = None) -> List[Dict[str, Any]]:
-    """Return list of currently open positions.
+def cmd_price(mt5, symbol):
+    symbol, err = _resolve_symbol(mt5, symbol)
+    if err is not None:
+        _print(err)
+        return False
 
-    Args:
-        symbol: Optional ticker filter (e.g. ``EURUSD``).
-
-    Returns:
-        List of position dicts (ticket, symbol, type, volume, open_price,
-        sl, tp, profit, comment, etc.).
-    """
-    _ensure_connected()
-    import MetaTrader5 as mt5  # type: ignore
-
-    if symbol:
-        positions = mt5.positions_get(symbol=symbol)
-    else:
-        positions = mt5.positions_get()
-
-    if positions is None:
-        return []
-    return [p._asdict() for p in positions]
-
-
-def current_price(symbol: str) -> Dict[str, Any]:
-    """Get current bid/ask for a symbol.
-
-    Args:
-        symbol: Ticker symbol (e.g. ``EURUSD``).
-
-    Returns:
-        Dict with keys: symbol, bid, ask, time, spread.
-    """
-    if not symbol or not symbol.strip():
-        raise ValueError("symbol must be non-empty")
-
-    _ensure_connected()
-    import MetaTrader5 as mt5  # type: ignore
-
-    tick = mt5.symbol_info_tick(symbol.strip())
+    tick = mt5.symbol_info_tick(symbol)
     if tick is None:
-        error_code = mt5.last_error()
-        raise RuntimeError(
-            f"MT5 symbol_info_tick({symbol!r}) failed. "
-            f"Is the symbol available in Market Watch? "
-            f"Error: ({error_code[0]}) {error_code[1]}"
-        )
-    return tick._asdict()
+        _print({"error": f"Symbol {symbol} not found", "mt5_error": mt5.last_error()})
+        return False
+
+    spread = round(float(tick.ask) - float(tick.bid), 5)
+    _print({
+        "symbol": symbol,
+        "bid": float(tick.bid),
+        "ask": float(tick.ask),
+        "spread": spread,
+        "time": int(tick.time),
+    })
+    return True
 
 
-def bars(
-    symbol: str,
-    timeframe: str = "H1",
-    count: int = 100,
-) -> np.ndarray:
-    """Get historical OHLCV bars.
+def cmd_bars(mt5, symbol, tf, count):
+    symbol, err = _resolve_symbol(mt5, symbol)
+    if err is not None:
+        _print(err)
+        return False
 
-    Args:
-        symbol: Ticker symbol (e.g. ``EURUSD``).
-        timeframe: MT5 timeframe: ``M1``, ``M5``, ``M15``, ``M30``,
-                   ``H1``, ``H4``, ``D1``, ``W1``, ``MN1``.
-        count: Number of bars to retrieve (default 100).
-
-    Returns:
-        Structured numpy array with columns:
-        time, open, high, low, close, tick_volume, spread, real_volume.
-    """
-    if not symbol or not symbol.strip():
-        raise ValueError("symbol must be non-empty")
-    if count < 1:
-        raise ValueError(f"count must be >= 1, got {count}")
-
-    _ensure_connected()
-    import MetaTrader5 as mt5  # type: ignore
+    count_i = _safe_int(count, -1)
+    if count_i < 1 or count_i > 5000:
+        _print({"error": "count must be between 1 and 5000"})
+        return False
 
     tf_map = {
         "M1": mt5.TIMEFRAME_M1,
@@ -168,19 +146,98 @@ def bars(
         "W1": mt5.TIMEFRAME_W1,
         "MN1": mt5.TIMEFRAME_MN1,
     }
+    tf_val = tf_map.get((tf or "").upper())
+    if tf_val is None:
+        _print({"error": f"Unknown timeframe: {tf}", "allowed": list(tf_map.keys())})
+        return False
 
-    tf = tf_map.get(timeframe.upper())
-    if tf is None:
-        raise ValueError(
-            f"Unknown timeframe {timeframe!r}. "
-            f"Valid: {', '.join(tf_map.keys())}"
-        )
+    rates = mt5.copy_rates_from_pos(symbol, tf_val, 0, count_i)
+    if rates is None or len(rates) == 0:
+        _print({"error": f"No data for {symbol} {tf}", "mt5_error": mt5.last_error()})
+        return False
 
-    rates = mt5.copy_rates_from_pos(symbol.strip(), tf, 0, count)
-    if rates is None:
-        error_code = mt5.last_error()
-        raise RuntimeError(
-            f"MT5 copy_rates_from_pos({symbol!r}, {timeframe}) failed. "
-            f"Error: ({error_code[0]}) {error_code[1]}"
-        )
-    return rates
+    bars = [
+        {
+            "time": datetime.fromtimestamp(int(r[0])).isoformat(),
+            "open": float(r[1]),
+            "high": float(r[2]),
+            "low": float(r[3]),
+            "close": float(r[4]),
+            "volume": int(r[5]),
+        }
+        for r in rates
+    ]
+    _print({"symbol": symbol, "timeframe": tf.upper(), "bars": bars})
+    return True
+
+
+def cmd_account(mt5):
+    info = mt5.account_info()
+    if info is None:
+        _print({"error": "Cannot get account info", "mt5_error": mt5.last_error()})
+        return False
+
+    _print({
+        "login": info.login,
+        "server": info.server,
+        "balance": info.balance,
+        "equity": info.equity,
+        "margin": info.margin,
+        "margin_free": info.margin_free,
+        "currency": info.currency,
+    })
+    return True
+
+
+def cmd_positions(mt5):
+    positions = mt5.positions_get()
+    if positions is None:
+        _print({"error": "positions_get failed", "mt5_error": mt5.last_error()})
+        return False
+    if len(positions) == 0:
+        _print({"positions": [], "count": 0})
+        return True
+
+    result = [
+        {
+            "symbol": p.symbol,
+            "type": "buy" if p.type == 0 else "sell",
+            "volume": p.volume,
+            "price_open": p.price_open,
+            "price_current": p.price_current,
+            "profit": p.profit,
+            "swap": p.swap,
+        }
+        for p in positions
+    ]
+    _print({"count": len(positions), "positions": result})
+    return True
+
+
+def main(argv):
+    if len(argv) < 2:
+        _print({"error": "Usage: mt5_query.py <cmd> [args]", "commands": ["price", "bars", "account", "positions"]})
+        return 1
+
+    mt5 = init()
+    cmd = argv[1].lower()
+    try:
+        ok = False
+        if cmd == "price" and len(argv) >= 3:
+            ok = cmd_price(mt5, argv[2])
+        elif cmd == "bars" and len(argv) >= 5:
+            ok = cmd_bars(mt5, argv[2], argv[3], argv[4])
+        elif cmd == "account":
+            ok = cmd_account(mt5)
+        elif cmd == "positions":
+            ok = cmd_positions(mt5)
+        else:
+            _print({"error": f"Unknown: {cmd}"})
+            return 1
+        return 0 if ok else 1
+    finally:
+        mt5.shutdown()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

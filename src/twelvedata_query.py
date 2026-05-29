@@ -1,139 +1,146 @@
-"""
-Hermes Agent — Twelve Data API Client
-======================================
-Lightweight wrapper around Twelve Data REST API for market quotes and
-historical bars.  Uses only standard-library ``urllib`` — no ``twelvedata`` SDK.
-
-Endpoints used:
-    - /quote        — real-time quote for a symbol
-    - /time_series  — historical OHLCV bars
-
-Rate limit: 800 requests/day (free tier).
-"""
-
+#!/usr/bin/env python3
+"""Twelve Data query tool."""
 import json
 import os
+import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
-from typing import Any, Dict, Optional
 
-API_BASE = "https://api.twelvedata.com"
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-def _api_key() -> str:
-    """Return Twelve Data API key from environment."""
-    key = os.getenv("TWELVEDATA_API_KEY", "")
-    if not key:
-        raise RuntimeError(
-            "TWELVEDATA_API_KEY environment variable is not set. "
-            "Get a free key at https://twelvedata.com/apikey"
-        )
-    return key
+API_KEY = os.getenv("TWELVEDATA_API_KEY", "57351334adf946248a3644438424e3b5").strip()
+BASE = "https://api.twelvedata.com"
+_ALLOWED_INTERVALS = {
+    "1min", "5min", "15min", "30min", "45min",
+    "1h", "2h", "4h", "8h", "1day", "1week", "1month",
+}
 
 
-def _get(endpoint: str, params: Dict[str, str]) -> Dict[str, Any]:
-    """Perform a GET request to the Twelve Data API.
+def _json_err(message, **extra):
+    payload = {"error": message}
+    payload.update(extra)
+    return payload
 
-    Args:
-        endpoint: API path (e.g. ``/quote``).
-        params: Query-string parameters (``apikey`` added automatically).
 
-    Returns:
-        Parsed JSON response as a dictionary.
-
-    Raises:
-        RuntimeError: On HTTP or API-level errors.
-    """
-    params = {**params, "apikey": _api_key()}
-    query = urllib.parse.urlencode(params)
-    url = f"{API_BASE}{endpoint}?{query}"
-
+def _safe_int(value, default=None):
     try:
-        with urllib.request.urlopen(url, timeout=15) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Twelve Data HTTP {exc.code}: {body}") from exc
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"Twelve Data connection error: {exc}") from exc
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(f"Twelve Data invalid JSON response: {exc}") from exc
+        return int(str(value).strip())
+    except Exception:
+        return default
 
-    if "code" in data and data.get("status") == "error":
-        raise RuntimeError(f"Twelve Data API error: {data.get('message', data)}")
 
+def api(path, params, retries=2):
+    if not API_KEY:
+        return _json_err("TWELVEDATA_API_KEY is empty")
+
+    qs = dict(params)
+    qs["apikey"] = API_KEY
+    url = f"{BASE}/{path}?{urllib.parse.urlencode(qs)}"
+    req = urllib.request.Request(url, headers={"User-Agent": "hermes-trader/1.0"})
+
+    last_err = None
+    for attempt in range(retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=15) as r:
+                raw = r.read().decode("utf-8", errors="replace")
+            data = json.loads(raw)
+            if data.get("status") == "error":
+                code = _safe_int(data.get("code"), 0) or 0
+                if code == 429 and attempt < retries:
+                    time.sleep(1.2 * (attempt + 1))
+                    continue
+            return data
+        except urllib.error.HTTPError as e:
+            last_err = f"HTTP {e.code}: {e.reason}"
+            if e.code in (429, 500, 502, 503, 504) and attempt < retries:
+                time.sleep(1.2 * (attempt + 1))
+                continue
+            return _json_err("Twelve Data request failed", details=last_err)
+        except Exception as e:
+            last_err = str(e)
+            if attempt < retries:
+                time.sleep(1.2 * (attempt + 1))
+                continue
+
+    return _json_err("Twelve Data request failed", details=last_err or "unknown error")
+
+
+def get_quote(symbol):
+    symbol = (symbol or "").strip()
+    if not symbol:
+        return _json_err("symbol is required")
+
+    data = api("quote", {"symbol": symbol})
+    # Twelve Data quote often returns a direct payload without status="ok".
+    if data.get("status") == "ok" or ("close" in data and not data.get("error")):
+        return {
+            "symbol": data.get("symbol", symbol),
+            "name": data.get("name", ""),
+            "price": data.get("close"),
+            "change": data.get("change"),
+            "change_pct": data.get("percent_change"),
+            "high": data.get("high"),
+            "low": data.get("low"),
+            "time": data.get("datetime"),
+        }
     return data
 
 
-# ---------------------------------------------------------------------------
-# Public API
-# ---------------------------------------------------------------------------
+def get_bars(symbol, interval, count):
+    symbol = (symbol or "").strip()
+    interval = (interval or "").strip()
+    count_i = _safe_int(count, -1)
 
-def quote(symbol: str, interval: str = "1min") -> Dict[str, Any]:
-    """Get a real-time (or delayed) quote for a symbol.
+    if not symbol:
+        return _json_err("symbol is required")
+    if interval not in _ALLOWED_INTERVALS:
+        return _json_err("invalid interval", allowed=sorted(_ALLOWED_INTERVALS))
+    if count_i < 1 or count_i > 5000:
+        return _json_err("count must be between 1 and 5000")
 
-    Args:
-        symbol: Ticker symbol (e.g. ``EUR/USD``, ``AAPL``).
-        interval: Bar interval for the quote (default ``1min``).
-
-    Returns:
-        Dictionary with keys: symbol, name, open, high, low, close,
-        previous_close, change, percent_change, volume, datetime, etc.
-    """
-    if not symbol or not symbol.strip():
-        raise ValueError("symbol must be a non-empty string")
-
-    return _get("/quote", {"symbol": symbol.strip(), "interval": interval})
-
-
-def time_series(
-    symbol: str,
-    interval: str = "1h",
-    outputsize: int = 60,
-) -> Dict[str, Any]:
-    """Get historical OHLCV bars for a symbol.
-
-    Args:
-        symbol: Ticker symbol (e.g. ``EUR/USD``, ``AAPL``).
-        interval: Bar interval: ``1min``, ``5min``, ``15min``, ``30min``,
-                  ``1h``, ``1day``, ``1week``, ``1month``.
-        outputsize: Number of bars to return (default 60).
-
-    Returns:
-        Dictionary with keys: meta (symbol, interval, etc.),
-        values (list of {datetime, open, high, low, close, volume}),
-        status.
-    """
-    if not symbol or not symbol.strip():
-        raise ValueError("symbol must be a non-empty string")
-    if outputsize < 1 or outputsize > 5000:
-        raise ValueError(f"outputsize must be 1–5000, got {outputsize}")
-
-    return _get(
-        "/time_series",
-        {
-            "symbol": symbol.strip(),
-            "interval": interval,
-            "outputsize": str(outputsize),
-        },
-    )
+    data = api("time_series", {"symbol": symbol, "interval": interval, "outputsize": str(count_i)})
+    if data.get("status") == "ok":
+        bars = []
+        for v in data.get("values", []):
+            try:
+                bars.append({
+                    "time": v["datetime"],
+                    "open": float(v["open"]),
+                    "high": float(v["high"]),
+                    "low": float(v["low"]),
+                    "close": float(v["close"]),
+                    "volume": v.get("volume", "0"),
+                })
+            except Exception:
+                continue
+        return {
+            "symbol": data.get("meta", {}).get("symbol", symbol),
+            "interval": data.get("meta", {}).get("interval", interval),
+            "type": data.get("meta", {}).get("type", ""),
+            "bars": list(reversed(bars)),
+        }
+    return data
 
 
-def extract_close_series(data: Dict[str, Any]) -> list:
-    """Extract closing prices as a list (oldest first) from a time_series response.
+def main(argv):
+    if len(argv) < 2:
+        print(json.dumps({"error": "Usage", "commands": ["quote SYM", "bars SYM INTERVAL COUNT"]}))
+        return 1
 
-    Args:
-        data: Response dict from ``time_series()``.
+    cmd = argv[1].lower()
+    if cmd == "quote" and len(argv) >= 3:
+        payload = get_quote(argv[2])
+        print(json.dumps(payload))
+        return 0 if not payload.get("error") else 1
 
-    Returns:
-        List of float closing prices, chronological order.
-    """
-    values = data.get("values", [])
-    if not values:
-        return []
-    # Twelve Data returns newest-first; reverse to oldest-first
-    return [float(v["close"]) for v in reversed(values)]
+    if cmd == "bars" and len(argv) >= 5:
+        payload = get_bars(argv[2], argv[3], argv[4])
+        print(json.dumps(payload))
+        return 0 if not payload.get("error") else 1
+
+    print(json.dumps({"error": f"Unknown: {cmd}"}))
+    return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))
