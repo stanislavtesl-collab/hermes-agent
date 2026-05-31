@@ -1,0 +1,34 @@
+{
+  "owner": {
+    "telegram_id": "534151570",
+    "telegram_username": "@Skynet2047",
+    "display_name": "Stylo"
+  },
+  "paths": {
+    "hermes_home": "C:\\Users\\Administrator\\AppData\\Local\\hermes",
+    "project": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent",
+    "venv_python": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\.venv\\Scripts\\python.exe",
+    "gateway_cmd": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\gateway-service\\Hermes_Gateway.cmd",
+    "gateway_log": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\logs\\gateway.log",
+    "ops_state": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\OPS_STATE.md",
+    "ops_last_change": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\LAST_CHANGE.json"
+  },
+  "trading": {
+    "default_symbol": "XAUUSD",
+    "mt5_account_hint": "591712391",
+    "mt5_script": "C:\\Users\\Administrator\\mt5_query.py",
+    "twelvedata_script": "C:\\Users\\Administrator\\twelvedata_query.py",
+    "analyze_script": "C:\\Users\\Administrator\\analyze_pipe.py",
+    "indicators_script": "C:\\Users\\Administrator\\indicators.py"
+  },
+  "runtime": {
+    "primary_model": "custom/deepseek-chat",
+    "fallback_1": "openai-codex/gpt-5.4",
+    "fallback_2": "openrouter/qwen/qwen3.7-max",
+    "telegram_allowed_chats": "534151570"
+  },
+  "notes": [
+    "Update this file when infra paths/account bindings change.",
+    "Do not store plain API keys in this file. Keep secrets in .env only."
+  ]
+}
