@@ -1,0 +1,288 @@
+"""
+Executor v4.2 — открывает сделки по сигналам от Monitor v4.2
++ ставит трейлинг-стоп + partial close через копирайтера
+"""
+import MetaTrader5 as mt5
+import time, os, json, sys
+from datetime import datetime
+
+WORKDIR = "C:/Users/Administrator/Desktop/FxPro"
+SIGNAL_FILE = os.path.join(WORKDIR, ".gold_trade_signal.json")
+LOG_FILE = os.path.join(WORKDIR, ".gold_executor_v42.log")
+LOCK_FILE = os.path.join(WORKDIR, ".gold_executor_v42.lock")
+PATH_MT5 = r"C:\Users\Administrator\Desktop\FxPro\terminal64.exe"
+SYMBOL = "GOLD"
+MAGIC = 123459
+
+def log(msg):
+    ts = datetime.now().strftime("%H:%M:%S")
+    with open(LOG_FILE, 'a') as f:
+        f.write(f"[{ts}] {msg}\n")
+    print(f"[{ts}] {msg}")
+
+def init_mt5():
+    mt5.shutdown()
+    time.sleep(0.5)
+    return mt5.initialize(path=PATH_MT5, timeout=20000)
+
+# --- SL/TP расчёт ---
+def calc_sl_tp(action, price, atr=None):
+    """SL по 15-bar low/high с запасом 5pts. TP — trailing+partial"""
+    rates = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_M1, 0, 20)
+    if action == "SELL":
+        # SL выше 15-bar high + 5pts
+        sl_ = max(float(r[2]) for r in rates) + 0.05 if rates else price + 2.0
+        return round(sl_, 2), 0  # TP = 0, трейлинг сам
+    else:  # BUY
+        sl_ = min(float(r[3]) for r in rates) - 0.05 if rates else price - 2.0
+        return round(sl_, 2), 0
+
+def open_trade(sig):
+    action = sig["action"]
+    price = mt5.symbol_info_tick(SYMBOL).ask if action == "BUY" else mt5.symbol_info_tick(SYMBOL).bid
+    lot = sig.get("lot", 0.03)
+    sl, tp = calc_sl_tp(action, price)
+
+    order_type = mt5.ORDER_TYPE_BUY if action == "BUY" else mt5.ORDER_TYPE_SELL
+    request = {
+        "action": mt5.TRADE_ACTION_DEAL,
+        "symbol": SYMBOL,
+        "volume": lot,
+        "type": order_type,
+        "price": price,
+        "sl": sl,
+        "tp": tp,
+        "deviation": 20,
+        "magic": MAGIC,
+        "comment": f"V42_{action[:2]}",
+        "type_time": mt5.ORDER_TIME_GTC,
+        "type_filling": mt5.ORDER_FILLING_IOC,
+    }
+    result = mt5.order_send(request)
+    if result and result.retcode == mt5.TRADE_RETCODE_DONE:
+        log(f"✅ ОТКРЫТА {action} #{result.order} @ {price:.2f} SL={sl:.2f}")
+        # Сохраняем параметры трейлинга
+        trail_info = {
+            "ticket": result.order,
+            "action": action,
+            "entry_price": round(price, 2),
+            "trailing_offset": sig.get("trailing_offset", 30),
+            "trailing_step": sig.get("trailing_step", 10),
+            "partial_close_pts": sig.get("partial_close_pts", 15),
+            "partial_close_fraction": sig.get("partial_close_fraction", 0.3),
+        }
+        with open(os.path.join(WORKDIR, ".v42_trail.json"), "w") as f:
+            json.dump(trail_info, f)
+        return result.order
+    else:
+        log(f"❌ Ошибка: retcode={result.retcode if result else None}")
+        return None
+
+def close_contradict(pos):
+    """Проверка H1 тренда — если позиция против тренда H1, закрываем"""
+    # Определяем H1 тренд через EMA50
+    rates_h1 = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_H1, 0, 60)
+    if rates_h1 is None or len(rates_h1) < 50:
+        return False
+    closes = [float(r[4]) for r in rates_h1]
+    last = closes[-1]
+    # EMA50 на H1
+    k = 2/51
+    ema50 = sum(closes[:50])/50
+    for c in closes[50:]:
+        ema50 = c*k + ema50*(1-k)
+    # EMA20 на H1
+    k20 = 2/21
+    ema20 = sum(closes[:20])/20
+    for c in closes[20:]:
+        ema20 = c*k20 + ema20*(1-k20)
+
+    trend_down = last < ema20 - 0.5 and ema20 < ema50
+    trend_up = last > ema20 + 0.5 and ema20 > ema50
+
+    pos_type = "BUY" if pos.type == 0 else "SELL"
+    contradict = (trend_down and pos_type == "BUY") or (trend_up and pos_type == "SELL")
+
+    if not contradict:
+        return False
+
+    tick = mt5.symbol_info_tick(SYMBOL)
+    close_price = tick.bid if pos_type == "BUY" else tick.ask
+    close_type = mt5.ORDER_TYPE_SELL if pos_type == "BUY" else mt5.ORDER_TYPE_BUY
+    req = {
+        "action": mt5.TRADE_ACTION_DEAL,
+        "symbol": SYMBOL,
+        "volume": pos.volume,
+        "type": close_type,
+        "position": pos.ticket,
+        "price": close_price,
+        "deviation": 50,
+        "magic": MAGIC,
+        "comment": "CONTRADICT_H1",
+        "type_time": mt5.ORDER_TIME_GTC,
+        "type_filling": mt5.ORDER_FILLING_IOC,
+    }
+    result = mt5.order_send(req)
+    if result and result.retcode == mt5.TRADE_RETCODE_DONE:
+        pts = round((close_price - pos.price_open) / 0.01, 1) if pos_type == "BUY" else round((pos.price_open - close_price) / 0.01, 1)
+        log(f"⚡ ПРОТИВ ТРЕНДА H1: закрыта {pos_type}#{pos.ticket} @ {close_price:.2f} ({'+' if pts>0 else ''}{pts}pts)")
+    else:
+        log(f"⚠️ Не удалось закрыть против тренда: {result}")
+    return True
+
+def manage_trail(pos):
+    """Управление трейлингом + partial close"""
+    try:
+        with open(os.path.join(WORKDIR, ".v42_trail.json")) as f:
+            trail = json.load(f)
+    except:
+        return
+
+    if not pos or pos.ticket != trail["ticket"]:
+        return  # это не наша позиция
+
+    trail_off = trail["trailing_offset"]
+    trail_step = trail["trailing_step"]
+    part_pts = trail["partial_close_pts"]
+    part_frac = trail["partial_close_fraction"]
+    entry = trail["entry_price"]
+    current = pos.price_current
+    action = trail["action"]
+
+    if action == "BUY":
+        profit_pts = (current - entry) / 0.01
+        # Partial close (один раз)
+        if trail.get("partial_done") is None and profit_pts >= part_pts:
+            close_vol = round(pos.volume * part_frac, 2)
+            tick = mt5.symbol_info_tick(SYMBOL)
+            req = {
+                "action": mt5.TRADE_ACTION_DEAL,
+                "symbol": SYMBOL,
+                "volume": close_vol,
+                "type": mt5.ORDER_TYPE_SELL,
+                "position": pos.ticket,
+                "price": tick.bid,
+                "deviation": 20,
+                "magic": MAGIC,
+                "comment": "PARTIAL42",
+                "type_time": mt5.ORDER_TIME_GTC,
+                "type_filling": mt5.ORDER_FILLING_IOC,
+            }
+            result = mt5.order_send(req)
+            if result and result.retcode == mt5.TRADE_RETCODE_DONE:
+                trail["partial_done"] = True
+                with open(os.path.join(WORKDIR, ".v42_trail.json"), "w") as f:
+                    json.dump(trail, f)
+                log(f"💰 PARTIAL CLOSE {close_vol} lots @ {tick.bid:.2f} (+{profit_pts:.0f}pts)")
+        # Трейлинг
+        new_sl = round(current - trail_off * 0.01, 2)
+        if pos.sl is None or pos.sl < new_sl - trail_step * 0.01:
+            if new_sl > pos.price_open:
+                req = {
+                    "action": mt5.TRADE_ACTION_SLTP,
+                    "symbol": SYMBOL,
+                    "position": pos.ticket,
+                    "sl": new_sl,
+                    "tp": 0,
+                    "magic": MAGIC,
+                }
+                mt5.order_send(req)
+                log(f"🎯 TRAIL BUY -> SL={new_sl:.2f}")
+    else:  # SELL
+        profit_pts = (entry - current) / 0.01
+        if trail.get("partial_done") is None and profit_pts >= part_pts:
+            close_vol = round(pos.volume * part_frac, 2)
+            tick = mt5.symbol_info_tick(SYMBOL)
+            req = {
+                "action": mt5.TRADE_ACTION_DEAL,
+                "symbol": SYMBOL,
+                "volume": close_vol,
+                "type": mt5.ORDER_TYPE_BUY,
+                "position": pos.ticket,
+                "price": tick.ask,
+                "deviation": 20,
+                "magic": MAGIC,
+                "comment": "PARTIAL42",
+                "type_time": mt5.ORDER_TIME_GTC,
+                "type_filling": mt5.ORDER_FILLING_IOC,
+            }
+            result = mt5.order_send(req)
+            if result and result.retcode == mt5.TRADE_RETCODE_DONE:
+                trail["partial_done"] = True
+                with open(os.path.join(WORKDIR, ".v42_trail.json"), "w") as f:
+                    json.dump(trail, f)
+                log(f"💰 PARTIAL CLOSE {close_vol} lots @ {tick.ask:.2f} (+{profit_pts:.0f}pts)")
+        # Трейлинг
+        new_sl = round(current + trail_off * 0.01, 2)
+        if pos.sl is None or pos.sl > new_sl + trail_step * 0.01:
+            if new_sl < pos.price_open:
+                req = {
+                    "action": mt5.TRADE_ACTION_SLTP,
+                    "symbol": SYMBOL,
+                    "position": pos.ticket,
+                    "sl": new_sl,
+                    "tp": 0,
+                    "magic": MAGIC,
+                }
+                mt5.order_send(req)
+                log(f"🎯 TRAIL SELL -> SL={new_sl:.2f}")
+
+def main():
+    # Single instance lock
+    try:
+        fd = os.open(LOCK_FILE, os.O_CREAT | os.O_EXCL | os.O_RDWR)
+        os.write(fd, str(os.getpid()).encode())
+        os.close(fd)
+    except FileExistsError:
+        print("Executor already running")
+        sys.exit(0)
+
+    log("🚀 EXECUTOR v4.2 STARTED")
+    # Чистим старый сигнал при старте
+    if os.path.exists(SIGNAL_FILE):
+        os.remove(SIGNAL_FILE)
+        log("Очищен старый сигнал при старте")
+
+    while True:
+        try:
+            if not init_mt5():
+                log("MT5 init failed, retry in 10s")
+                time.sleep(10)
+                continue
+
+            mt5.symbol_select(SYMBOL, True)
+
+            # Проверяем открытые позиции
+            positions = mt5.positions_get(symbol=SYMBOL)
+            has_position = positions is not None and len(positions) > 0
+
+            if has_position:
+                pos = positions[0]
+                # Если есть позиция — управляем ею (трейлинг + partial)
+                manage_trail(pos)
+                # И проверяем на противоречие H1-тренду
+                close_contradict(pos)
+                # Удаляем сигнал, если он ещё есть
+                if os.path.exists(SIGNAL_FILE):
+                    os.remove(SIGNAL_FILE)
+            else:
+                # Нет позиции — ждём сигнал
+                if os.path.exists(SIGNAL_FILE):
+                    try:
+                        with open(SIGNAL_FILE) as f:
+                            sig = json.load(f)
+                        if sig.get("source") == "monitor_v42" and sig.get("action") in ("BUY", "SELL"):
+                            ticket = open_trade(sig)
+                            if ticket:
+                                os.remove(SIGNAL_FILE)
+                    except Exception as e:
+                        log(f"Signal error: {e}")
+
+            mt5.shutdown()
+            time.sleep(3)
+        except Exception as e:
+            log(f"❌ Ошибка: {e}")
+            time.sleep(10)
+
+if __name__ == "__main__":
+    main()

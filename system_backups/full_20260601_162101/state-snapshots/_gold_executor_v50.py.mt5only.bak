@@ -1,0 +1,159 @@
+"""
+Executor V5.0 — Level Breakout
+Открывает сделки по сигналам от Monitor V5.0
+Трейлинг offset=25 step=10
+"""
+import MetaTrader5 as mt5
+import time, os, json, sys
+from datetime import datetime, timezone
+
+WORKDIR = "C:/Users/Administrator/Desktop/FxPro"
+SIGNAL_FILE = os.path.join(WORKDIR, ".gold_trade_signal_v50.json")
+LOG_FILE = os.path.join(WORKDIR, ".gold_executor_v50.log")
+LOCK_FILE = os.path.join(WORKDIR, ".gold_executor_v50.lock")
+TRAIL_FILE = os.path.join(WORKDIR, ".v50_trail.json")
+HEARTBEAT_FILE = os.path.join(WORKDIR, ".gold_executor_v50_heartbeat.json")
+PATH_MT5 = r"C:\Users\Administrator\Desktop\FxPro\terminal64.exe"
+SYMBOL = "GOLD"
+MAGIC = 123460
+
+def log(msg):
+    ts = datetime.now().strftime("%H:%M:%S")
+    with open(LOG_FILE, 'a') as f:
+        f.write(f"[{ts}] {msg}\n")
+    print(f"[{ts}] {msg}")
+
+def init_mt5():
+    try: mt5.shutdown()
+    except: pass
+    time.sleep(0.5)
+    return mt5.initialize(path=PATH_MT5, timeout=20000)
+
+def open_trade(sig):
+    action = sig["action"]
+    tick = mt5.symbol_info_tick(SYMBOL)
+    price = tick.ask if action == "BUY" else tick.bid
+    lot = sig.get("lot", 0.03)
+    sl = sig.get("sl", 0)
+    trail_off = sig.get("trailing_offset", 25)
+    trail_step = sig.get("trailing_step", 10)
+
+    order_type = mt5.ORDER_TYPE_BUY if action == "BUY" else mt5.ORDER_TYPE_SELL
+    request = {
+        "action": mt5.TRADE_ACTION_DEAL,
+        "symbol": SYMBOL,
+        "volume": lot,
+        "type": order_type,
+        "price": price,
+        "sl": sl if sl else 0,
+        "tp": 0,
+        "deviation": 20,
+        "magic": MAGIC,
+        "comment": f"V50_{action[:2]}",
+        "type_time": mt5.ORDER_TIME_GTC,
+        "type_filling": mt5.ORDER_FILLING_IOC,
+    }
+    result = mt5.order_send(request)
+    if result and result.retcode == mt5.TRADE_RETCODE_DONE:
+        log(f"✅ {action} #{result.order} @ {price:.2f} SL={sl:.2f}")
+        trail_info = {
+            "ticket": result.order,
+            "action": action,
+            "entry_price": round(price, 2),
+            "trailing_offset": trail_off,
+            "trailing_step": trail_step,
+        }
+        with open(TRAIL_FILE, "w") as f:
+            json.dump(trail_info, f)
+        return result.order
+    else:
+        log(f"❌ Ошибка: retcode={result.retcode if result else None}")
+        return None
+
+def manage_trail(pos):
+    """Трейлинг без partial close"""
+    try:
+        with open(TRAIL_FILE) as f:
+            trail = json.load(f)
+    except:
+        return
+    if not pos or pos.ticket != trail["ticket"]:
+        return
+
+    off = trail["trailing_offset"]
+    step = trail["trailing_step"]
+    entry = trail["entry_price"]
+    current = pos.price_current
+
+    if trail["action"] == "BUY":
+        new_sl = round(current - off * 0.01, 2)
+        if pos.sl is None or pos.sl < new_sl - step * 0.01:
+            if new_sl > entry:
+                req = {
+                    "action": mt5.TRADE_ACTION_SLTP, "symbol": SYMBOL,
+                    "position": pos.ticket, "sl": new_sl, "tp": 0,
+                    "magic": MAGIC, "deviation": 10,
+                }
+                mt5.order_send(req)
+                log(f"🎯 TRAIL BUY -> SL={new_sl:.2f}")
+    else:  # SELL
+        new_sl = round(current + off * 0.01, 2)
+        if pos.sl is None or pos.sl > new_sl + step * 0.01:
+            if new_sl < entry:
+                req = {
+                    "action": mt5.TRADE_ACTION_SLTP, "symbol": SYMBOL,
+                    "position": pos.ticket, "sl": new_sl, "tp": 0,
+                    "magic": MAGIC, "deviation": 10,
+                }
+                mt5.order_send(req)
+                log(f"🎯 TRAIL SELL -> SL={new_sl:.2f}")
+
+def main():
+    # Lock
+    try:
+        fd = os.open(LOCK_FILE, os.O_CREAT | os.O_EXCL | os.O_RDWR)
+        os.write(fd, str(os.getpid()).encode())
+        os.close(fd)
+    except FileExistsError:
+        print("V5.0 already running")
+        sys.exit(0)
+
+    log("🚀 EXECUTOR V5.0 STARTED")
+    if os.path.exists(SIGNAL_FILE):
+        os.remove(SIGNAL_FILE)
+
+    while True:
+        try:
+            # Heartbeat
+            hb = {"last_check": datetime.now(timezone.utc).isoformat(), "pid": os.getpid()}
+            with open(HEARTBEAT_FILE, "w") as f:
+                json.dump(hb, f)
+
+            if not init_mt5():
+                time.sleep(10)
+                continue
+
+            mt5.symbol_select(SYMBOL, True)
+            pos = mt5.positions_get(symbol=SYMBOL)
+
+            if pos and len(pos) > 0:
+                manage_trail(pos[0])
+                if os.path.exists(SIGNAL_FILE):
+                    os.remove(SIGNAL_FILE)
+            else:
+                if os.path.exists(SIGNAL_FILE):
+                    with open(SIGNAL_FILE) as f:
+                        sig = json.load(f)
+                    if sig.get("source") == "monitor_v50":
+                        ticket = open_trade(sig)
+                        if ticket:
+                            os.remove(SIGNAL_FILE)
+
+            mt5.shutdown()
+            time.sleep(3)
+        except Exception as e:
+            log(f"❌ Ошибка: {e}")
+            time.sleep(10)
+
+if __name__ == "__main__":
+    main()

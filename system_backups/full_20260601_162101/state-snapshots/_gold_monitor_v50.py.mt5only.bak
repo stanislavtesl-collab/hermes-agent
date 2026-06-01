@@ -1,0 +1,133 @@
+"""
+Monitor V5.0 — Level Breakout (M5)
+Сигнал: пробой swing high/low на M5
+Данные через MT5 (прямые)
+Пишет .gold_trade_signal_v50.json
+"""
+import json, time, os, sys
+from datetime import datetime, timezone
+
+sys.path.insert(0, "/c/Program Files/Python312/Lib/site-packages")
+import MetaTrader5 as mt5
+
+MT5_PATH = r"C:\Users\Administrator\Desktop\FxPro\terminal64.exe"
+SIGNAL_FILE = "C:/Users/Administrator/Desktop/FxPro/.gold_trade_signal_v50.json"
+HEARTBEAT_FILE = "C:/Users/Administrator/Desktop/FxPro/.monitor_v50_heartbeat.json"
+SYMBOL = "GOLD"
+
+def find_swings(closes, highs, lows, lookback=20):
+    """Ищем swing high/low за последние lookback баров"""
+    n = len(closes)
+    swings = []
+    for i in range(n - lookback*2, n):
+        is_high = True
+        is_low = True
+        for j in range(1, lookback):
+            if i - j < 0 or i + j >= n:
+                is_high = False; is_low = False; break
+            if highs[i-j] >= highs[i] or highs[i+j] >= highs[i]:
+                is_high = False
+            if lows[i-j] <= lows[i] or lows[i+j] <= lows[i]:
+                is_low = False
+        if is_high and is_low:
+            continue
+        if is_high:
+            swings.append(("high", highs[i], i))
+        if is_low:
+            swings.append(("low", lows[i], i))
+    return swings
+
+def check_signal():
+    """Проверяем M5 на пробой swing уровня через MT5"""
+    rates = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_M5, 0, 60)
+    if rates is None or len(rates) < 30:
+        return None
+
+    closes5 = [r[4] for r in rates]
+    highs5 = [r[2] for r in rates]
+    lows5 = [r[3] for r in rates]
+    last_c = closes5[-1]
+    prev_c = closes5[-2]
+
+    # Swing уровни на M5
+    swings = find_swings(closes5[:-5], highs5[:-5], lows5[:-5], 15)
+    highs_sw = [s[1] for s in swings if s[0] == "high"]
+    lows_sw = [s[1] for s in swings if s[0] == "low"]
+    nearest_high = min(highs_sw, key=lambda x: abs(x - last_c)) if highs_sw else None
+    nearest_low = min(lows_sw, key=lambda x: abs(x - last_c)) if lows_sw else None
+
+    signal = None
+
+    if nearest_high:
+        # BUY: пробой swing high
+        if prev_c <= nearest_high and last_c > nearest_high:
+            signal = {
+                "action": "BUY",
+                "symbol": "GOLD",
+                "price": round(last_c, 2),
+                "lot": 0.03,
+                "entry_level": round(nearest_high, 2),
+                "sl": round(nearest_high - 0.50, 2),
+                "reason": f"Swing high BUY @ {nearest_high:.2f}",
+                "trailing_offset": 25,
+                "trailing_step": 10,
+                "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
+                "source": "monitor_v50"
+            }
+
+    if not signal and nearest_low:
+        # SELL: пробой swing low
+        if prev_c >= nearest_low and last_c < nearest_low:
+            signal = {
+                "action": "SELL",
+                "symbol": "GOLD",
+                "price": round(last_c, 2),
+                "lot": 0.03,
+                "entry_level": round(nearest_low, 2),
+                "sl": round(nearest_low + 0.50, 2),
+                "reason": f"Swing low SELL @ {nearest_low:.2f}",
+                "trailing_offset": 25,
+                "trailing_step": 10,
+                "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
+                "source": "monitor_v50"
+            }
+
+    if signal:
+        with open(SIGNAL_FILE, "w") as f:
+            json.dump(signal, f)
+        return signal
+    return None
+
+def heartbeat():
+    hb = {"last_check": datetime.now(timezone.utc).isoformat(), "pid": os.getpid()}
+    with open(HEARTBEAT_FILE, "w") as f:
+        json.dump(hb, f)
+
+if __name__ == "__main__":
+    print(f"[Monitor V5.0] Starting, PID={os.getpid()}")
+    print(f"[Monitor V5.0] MT5 data source, M5 swing breakout")
+    print(f"[Monitor V5.0] Trailing offset=25 step=10")
+    print("-" * 50)
+
+    if not mt5.initialize(path=MT5_PATH, timeout=15000):
+        print("MT5 init failed!")
+        sys.exit(1)
+    mt5.symbol_select(SYMBOL, True)
+    print(f"MT5 connected, account: {mt5.account_info().login}")
+
+    while True:
+        heartbeat()
+        try:
+            tick = mt5.symbol_info_tick(SYMBOL)
+            ts = datetime.now(timezone.utc).strftime("%H:%M:%S")
+
+            signal = check_signal()
+            if signal:
+                print(f"[{ts}] SIGNAL {signal['action']} @ {signal['price']} | {signal['reason']}")
+            else:
+                print(f"[{ts}] No signal | {SYMBOL} @ {tick.bid:.2f}")
+
+        except Exception as e:
+            print(f"[{ts}] Error: {e}")
+
+        time.sleep(15)

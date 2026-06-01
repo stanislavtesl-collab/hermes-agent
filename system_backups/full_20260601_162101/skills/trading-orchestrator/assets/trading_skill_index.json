@@ -1,0 +1,671 @@
+{
+  "count": 133,
+  "root": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\skills",
+  "skills": [
+    {
+      "name": "backtest-expert",
+      "path": "agiprolabs-trading/backtest-expert/SKILL.md",
+      "description": "Expert guidance for systematic backtesting of trading strategies. Use when developing, testing, stress-testing, or validating quantitative trading strategies. Covers \"beating ideas to death\" methodology, parameter robustness testing, slippage modeling, bias prevention, and interpreting backtest results. Applicable when user asks about backtesting, strategy validation, robustness testing, avoiding overfitting, or systematic trading development."
+    },
+    {
+      "name": "backtrader",
+      "path": "agiprolabs-trading/backtrader/SKILL.md",
+      "description": "Event-driven backtesting with bar-by-bar execution, complex order types, multiple analyzers, and custom indicators"
+    },
+    {
+      "name": "birdeye-api",
+      "path": "agiprolabs-trading/birdeye-api/SKILL.md",
+      "description": "Solana token market data via Birdeye — prices, OHLCV, trades, token metadata, security checks, and trader activity"
+    },
+    {
+      "name": "breadth-chart-analyst",
+      "path": "agiprolabs-trading/breadth-chart-analyst/SKILL.md",
+      "description": "This skill should be used when analyzing market breadth charts, specifically the S&P 500 Breadth Index (200-Day MA based) and the US Stock Market Uptrend Stock Ratio charts. Use this skill when the user provides breadth chart images for analysis, requests market breadth assessment, positioning strategy recommendations, or wants to understand medium-term strategic and short-term tactical market outlook based on breadth indicators. Also works WITHOUT chart images by fetching CSV data directly from public sources. All analysis and output are conducted in English."
+    },
+    {
+      "name": "breakout-trade-planner",
+      "path": "agiprolabs-trading/breakout-trade-planner/SKILL.md",
+      "description": "Generate Minervini-style breakout trade plans from VCP screener output with worst-case risk calculation, portfolio heat management, and Alpaca-compatible order templates (stop-limit bracket for pre-placement, limit bracket for post-confirmation). Use when user has VCP screener results and wants actionable trade plans with entry/stop/target levels and position sizing."
+    },
+    {
+      "name": "canslim-screener",
+      "path": "agiprolabs-trading/canslim-screener/SKILL.md",
+      "description": "Screen US stocks using William O'Neil's CANSLIM growth stock methodology. Use when user requests CANSLIM stock screening, growth stock analysis, momentum stock identification, or wants to find stocks with strong earnings and price momentum following O'Neil's investment system."
+    },
+    {
+      "name": "coingecko-api",
+      "path": "agiprolabs-trading/coingecko-api/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "cointegration-analysis",
+      "path": "agiprolabs-trading/cointegration-analysis/SKILL.md",
+      "description": "Cointegration testing for pairs trading using Engle-Granger, Johansen, and rolling stability analysis"
+    },
+    {
+      "name": "copy-trading",
+      "path": "agiprolabs-trading/copy-trading/SKILL.md",
+      "description": "Wallet evaluation, monitoring, and copy-trade strategy design for Solana DEX trading"
+    },
+    {
+      "name": "core-portfolio",
+      "path": "agiprolabs-trading/core-portfolio/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "correlation-analysis",
+      "path": "agiprolabs-trading/correlation-analysis/SKILL.md",
+      "description": "Cross-asset correlation analysis including rolling correlation, hierarchical clustering, tail dependence, and regime-dependent correlation"
+    },
+    {
+      "name": "cost-basis-engine",
+      "path": "agiprolabs-trading/cost-basis-engine/SKILL.md",
+      "description": "Multi-method cost basis computation including specific identification, FIFO, LIFO, HIFO, and proportional average cost with partial sell handling"
+    },
+    {
+      "name": "crypto-tax-export",
+      "path": "agiprolabs-trading/crypto-tax-export/SKILL.md",
+      "description": "Export trade history and tax calculations in formats compatible with Koinly, CoinTracker, CoinLedger, TokenTax, and IRS Form 8949"
+    },
+    {
+      "name": "custom-indicators",
+      "path": "agiprolabs-trading/custom-indicators/SKILL.md",
+      "description": "Crypto-native indicators including NVT ratio, exchange flow, funding rate signals, holder momentum, and smart money flow"
+    },
+    {
+      "name": "data-quality-checker",
+      "path": "agiprolabs-trading/data-quality-checker/SKILL.md",
+      "description": "Validate data quality in market analysis documents and blog articles before publication. Use when checking for price scale inconsistencies (ETF vs futures), instrument notation errors, date/day-of-week mismatches, allocation total errors, and unit mismatches. Supports English and Japanese content. Advisory mode -- flags issues as warnings for human review, not as blockers."
+    },
+    {
+      "name": "defillama-api",
+      "path": "agiprolabs-trading/defillama-api/SKILL.md",
+      "description": "Free DeFi analytics across all chains — TVL, token prices, DEX volumes, fees/revenue, stablecoins, and bridges"
+    },
+    {
+      "name": "dex-execution",
+      "path": "agiprolabs-trading/dex-execution/SKILL.md",
+      "description": "Solana DEX swap execution via Jupiter aggregator including quoting, transaction building, signing, and confirmation"
+    },
+    {
+      "name": "dex-pool-analysis",
+      "path": "agiprolabs-trading/dex-pool-analysis/SKILL.md",
+      "description": "AMM pool mechanics comparison across Raydium, Orca, and Meteora including fee structures, pool types, creation patterns, and volume efficiency"
+    },
+    {
+      "name": "dexscreener-api",
+      "path": "agiprolabs-trading/dexscreener-api/SKILL.md",
+      "description": "Free, no-auth multi-chain DEX pair data — prices, volume, liquidity, transactions, and token profiles"
+    },
+    {
+      "name": "dividend-growth-pullback-screener",
+      "path": "agiprolabs-trading/dividend-growth-pullback-screener/SKILL.md",
+      "description": "Use this skill to find high-quality dividend growth stocks (12%+ annual dividend growth, 1.5%+ yield) that are experiencing temporary pullbacks, identified by RSI oversold conditions (RSI ≤40). This skill combines fundamental dividend analysis with technical timing indicators to identify buying opportunities in strong dividend growers during short-term weakness."
+    },
+    {
+      "name": "downtrend-duration-analyzer",
+      "path": "agiprolabs-trading/downtrend-duration-analyzer/SKILL.md",
+      "description": "Analyze historical downtrend durations and generate interactive HTML histograms showing typical correction lengths by sector and market cap."
+    },
+    {
+      "name": "dual-axis-skill-reviewer",
+      "path": "agiprolabs-trading/dual-axis-skill-reviewer/SKILL.md",
+      "description": "Review skills in any project using a dual-axis method: (1) deterministic code-based checks (structure, scripts, tests, execution safety) and (2) LLM deep review findings. Use when you need reproducible quality scoring for `skills/*/SKILL.md`, want to gate merges with a score threshold (for example 90+), or need concrete improvement items for low-scoring skills. Works across projects via --project-root."
+    },
+    {
+      "name": "earnings-calendar",
+      "path": "agiprolabs-trading/earnings-calendar/SKILL.md",
+      "description": "This skill retrieves upcoming earnings announcements for US stocks using the Financial Modeling Prep (FMP) API. Use this when the user requests earnings calendar data, wants to know which companies are reporting earnings in the upcoming week, or needs a weekly earnings review. The skill focuses on mid-cap and above companies (over $2B market cap) that have significant market impact, organizing the data by date and timing in a clean markdown table format. Supports multiple environments (CLI, Desktop, Web) with flexible API key management."
+    },
+    {
+      "name": "earnings-trade-analyzer",
+      "path": "agiprolabs-trading/earnings-trade-analyzer/SKILL.md",
+      "description": "Analyze recent post-earnings stocks using a 5-factor scoring system (Gap Size, Pre-Earnings Trend, Volume Trend, MA200 Position, MA50 Position). Scores each stock 0-100 and assigns A/B/C/D grades. Use when user asks about earnings trade analysis, post-earnings momentum screening, earnings gap scoring, or finding best recent earnings reactions."
+    },
+    {
+      "name": "economic-calendar-fetcher",
+      "path": "agiprolabs-trading/economic-calendar-fetcher/SKILL.md",
+      "description": "Fetch upcoming economic events and data releases using FMP API. Retrieve scheduled central bank decisions, employment reports, inflation data, GDP releases, and other market-moving economic indicators for specified date ranges (default: next 7 days). The script outputs raw JSON or text; the assistant filters, assesses impact, and generates the Markdown report."
+    },
+    {
+      "name": "edge-candidate-agent",
+      "path": "agiprolabs-trading/edge-candidate-agent/SKILL.md",
+      "description": "Generate and prioritize US equity long-side edge research tickets from EOD observations, then export pipeline-ready candidate specs for trade-strategy-pipeline Phase I. Use when users ask to turn hypotheses/anomalies into reproducible research tickets, convert validated ideas into `strategy.yaml` + `metadata.json`, or preflight-check interface compatibility (`edge-finder-candidate/v1`) before running pipeline backtests."
+    },
+    {
+      "name": "edge-concept-synthesizer",
+      "path": "agiprolabs-trading/edge-concept-synthesizer/SKILL.md",
+      "description": "Abstract detector tickets and hints into reusable edge concepts with thesis, invalidation signals, and strategy playbooks before strategy design/export."
+    },
+    {
+      "name": "edge-hint-extractor",
+      "path": "agiprolabs-trading/edge-hint-extractor/SKILL.md",
+      "description": "Extract edge hints from daily market observations and news reactions, with optional LLM ideation, and output canonical hints.yaml for downstream concept synthesis and auto detection."
+    },
+    {
+      "name": "edge-pipeline-orchestrator",
+      "path": "agiprolabs-trading/edge-pipeline-orchestrator/SKILL.md",
+      "description": "Orchestrate the full edge research pipeline from candidate detection through strategy design, review, revision, and export. Use when coordinating multi-stage edge research workflows end-to-end."
+    },
+    {
+      "name": "edge-signal-aggregator",
+      "path": "agiprolabs-trading/edge-signal-aggregator/SKILL.md",
+      "description": "Aggregate and rank signals from multiple edge-finding skills (edge-candidate-agent, theme-detector, sector-analyst, institutional-flow-tracker) into a prioritized conviction dashboard with weighted scoring, deduplication, and contradiction detection."
+    },
+    {
+      "name": "edge-strategy-designer",
+      "path": "agiprolabs-trading/edge-strategy-designer/SKILL.md",
+      "description": "Convert abstract edge concepts into strategy draft variants and optional exportable ticket YAMLs for edge-candidate-agent export/validation."
+    },
+    {
+      "name": "edge-strategy-reviewer",
+      "path": "agiprolabs-trading/edge-strategy-reviewer/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "exit-strategies",
+      "path": "agiprolabs-trading/exit-strategies/SKILL.md",
+      "description": "Systematic exit rules, stop-loss methods, take-profit strategies, and trailing stop implementations for crypto trading"
+    },
+    {
+      "name": "exposure-coach",
+      "path": "agiprolabs-trading/exposure-coach/SKILL.md",
+      "description": "Generate a one-page Market Posture summary with net exposure ceiling, growth-vs-value bias, participation breadth, and new-entry-allowed vs cash-priority recommendation by integrating signals from breadth, regime, and flow analysis skills."
+    },
+    {
+      "name": "feature-engineering",
+      "path": "agiprolabs-trading/feature-engineering/SKILL.md",
+      "description": "Feature construction from market data for ML trading models including price, volume, on-chain, and microstructure features"
+    },
+    {
+      "name": "finviz-screener",
+      "path": "agiprolabs-trading/finviz-screener/SKILL.md",
+      "description": "Build and open FinViz screener URLs from natural language requests. Use when user wants to screen stocks, find stocks matching criteria, filter by fundamentals or technicals, or asks to open FinViz with specific conditions. Supports both Japanese and English input (e.g., \"高配当で成長している小型株を探したい\", \"Find oversold large caps with high ROE\")."
+    },
+    {
+      "name": "fixed-income",
+      "path": "agiprolabs-trading/fixed-income/SKILL.md",
+      "description": "[STUB] Bond pricing, yield curves, duration and convexity analysis, and DeFi lending rate modeling"
+    },
+    {
+      "name": "ftd-detector",
+      "path": "agiprolabs-trading/ftd-detector/SKILL.md",
+      "description": "Detects Follow-Through Day (FTD) signals for market bottom confirmation using William O'Neil's methodology. Dual-index tracking (S&P 500 + NASDAQ) with state machine for rally attempt, FTD qualification, and post-FTD health monitoring. Use when user asks about market bottom signals, follow-through days, rally attempts, re-entry timing after corrections, or whether it's safe to increase equity exposure. Complementary to market-top-detector (defensive) - this skill is offensive (bottom confirmation)."
+    },
+    {
+      "name": "helius-api",
+      "path": "agiprolabs-trading/helius-api/SKILL.md",
+      "description": "Enhanced Solana RPC with DAS API, parsed transactions, webhooks, and priority fee estimation via Helius"
+    },
+    {
+      "name": "ibd-distribution-day-monitor",
+      "path": "agiprolabs-trading/ibd-distribution-day-monitor/SKILL.md",
+      "description": "Detect IBD-style Distribution Days for QQQ/SPY (close down at least 0.2% on higher volume), track 25-session expiration and 5% invalidation, count d5/d15/d25 clusters, classify market risk (NORMAL/CAUTION/HIGH/SEVERE), and emit TQQQ/QQQ exposure recommendations. Use after market close, before TQQQ exposure changes, or as input to FTD/market-state frameworks. Does not execute trades."
+    },
+    {
+      "name": "impermanent-loss",
+      "path": "agiprolabs-trading/impermanent-loss/SKILL.md",
+      "description": "Impermanent loss calculation, modeling, and breakeven analysis for AMM liquidity provision across pool types"
+    },
+    {
+      "name": "institutional-flow-tracker",
+      "path": "agiprolabs-trading/institutional-flow-tracker/SKILL.md",
+      "description": "Use this skill to track institutional investor ownership changes and portfolio flows using 13F filings data. Analyzes hedge funds, mutual funds, and other institutional holders to identify stocks with significant smart money accumulation or distribution. Helps discover stocks before major moves by following where sophisticated investors are deploying capital."
+    },
+    {
+      "name": "jito-bundles",
+      "path": "agiprolabs-trading/jito-bundles/SKILL.md",
+      "description": "Jito bundle submission for MEV protection on Solana — bundle building, tip strategies, block engine endpoints, and landing rate optimization"
+    },
+    {
+      "name": "kanchi-dividend-review-monitor",
+      "path": "agiprolabs-trading/kanchi-dividend-review-monitor/SKILL.md",
+      "description": "Monitor dividend portfolios with Kanchi-style forced-review triggers (T1-T5) and convert anomalies into OK/WARN/REVIEW states without auto-selling. Use when users ask for 減配検知, 8-Kガバナンス監視, 配当安全性モニタリング, REVIEWキュー自動化, or periodic dividend risk checks."
+    },
+    {
+      "name": "kanchi-dividend-sop",
+      "path": "agiprolabs-trading/kanchi-dividend-sop/SKILL.md",
+      "description": "Convert Kanchi-style dividend investing into a repeatable US-stock operating procedure. Use when users ask for かんち式配当投資, dividend screening, dividend growth quality checks, PERxPBR adaptation for US sectors, pullback limit-order planning, or one-page stock memo creation. Covers screening, deep dive, entry planning, and post-purchase monitoring cadence."
+    },
+    {
+      "name": "kanchi-dividend-us-tax-accounting",
+      "path": "agiprolabs-trading/kanchi-dividend-us-tax-accounting/SKILL.md",
+      "description": "Provide US dividend tax and account-location workflow for Kanchi-style income portfolios. Use when users ask about qualified vs ordinary dividends, 1099-DIV interpretation, REIT/BDC distribution treatment, holding-period checks, or taxable-vs-IRA account placement decisions for dividend assets."
+    },
+    {
+      "name": "kelly-criterion",
+      "path": "agiprolabs-trading/kelly-criterion/SKILL.md",
+      "description": "Kelly criterion optimal sizing with fractional variants, edge estimation, and practical application for crypto trading"
+    },
+    {
+      "name": "liquidity-analysis",
+      "path": "agiprolabs-trading/liquidity-analysis/SKILL.md",
+      "description": "DEX liquidity depth assessment, slippage estimation, and pool composition analysis for Solana tokens"
+    },
+    {
+      "name": "lp-math",
+      "path": "agiprolabs-trading/lp-math/SKILL.md",
+      "description": "AMM liquidity provision mathematics including constant-product, concentrated liquidity, price impact, and LP share calculations"
+    },
+    {
+      "name": "macro-regime-detector",
+      "path": "agiprolabs-trading/macro-regime-detector/SKILL.md",
+      "description": "Detect structural macro regime transitions (1-2 year horizon) using cross-asset ratio analysis. Analyze RSP/SPY concentration, yield curve, credit conditions, size factor, equity-bond relationship, and sector rotation to identify regime shifts between Concentration, Broadening, Contraction, Inflationary, and Transitional states. Run when user asks about macro regime, market regime change, structural rotation, or long-term market positioning."
+    },
+    {
+      "name": "market-analysis",
+      "path": "market-analysis/SKILL.md",
+      "description": "Technical analysis with indicators (RSI, MACD, MA), support/resistance, multi-timeframe trends, and sentiment. Use when analyzing markets or interpreting charts."
+    },
+    {
+      "name": "market-breadth-analyzer",
+      "path": "agiprolabs-trading/market-breadth-analyzer/SKILL.md",
+      "description": "Quantifies market breadth health using TraderMonty's public CSV data. Generates a 0-100 composite score across 6 components (100 = healthy). No API key required. Use when user asks about market breadth, participation rate, advance-decline health, whether the rally is broad-based, or general market health assessment."
+    },
+    {
+      "name": "market-environment-analysis",
+      "path": "agiprolabs-trading/market-environment-analysis/SKILL.md",
+      "description": "Comprehensive market environment analysis and reporting tool. Analyzes global markets including US, European, Asian markets, forex, commodities, and economic indicators. Provides risk-on/risk-off assessment, sector analysis, and technical indicator interpretation. Triggers on keywords like market analysis, market environment, global markets, trading environment, market conditions, investment climate, market sentiment, forex analysis, stock market analysis, 相場環境, 市場分析, マーケット状況, 投資環境."
+    },
+    {
+      "name": "market-microstructure",
+      "path": "agiprolabs-trading/market-microstructure/SKILL.md",
+      "description": "DEX orderflow analysis, trade classification, buyer/seller pressure, and microstructure signals for Solana tokens"
+    },
+    {
+      "name": "market-microstructure-traditional",
+      "path": "agiprolabs-trading/market-microstructure-traditional/SKILL.md",
+      "description": "Traditional market microstructure concepts applied to crypto — order book dynamics, market making theory, price formation models, execution quality measurement, and CEX vs DEX structural differences"
+    },
+    {
+      "name": "market-news-analyst",
+      "path": "agiprolabs-trading/market-news-analyst/SKILL.md",
+      "description": "This skill should be used when analyzing recent market-moving news events and their impact on equity markets and commodities. Use this skill when the user requests analysis of major financial news from the past 10 days, wants to understand market reactions to monetary policy decisions (FOMC, ECB, BOJ), needs assessment of geopolitical events' impact on commodities, or requires comprehensive review of earnings announcements from mega-cap stocks. The skill automatically collects news using WebSearch/WebFetch tools and produces impact-ranked analysis reports. All analysis thinking and output are conducted in English."
+    },
+    {
+      "name": "market-regime",
+      "path": "agiprolabs-trading/market-regime/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "market-top-detector",
+      "path": "agiprolabs-trading/market-top-detector/SKILL.md",
+      "description": "Detects market top probability using O'Neil Distribution Days, Minervini Leading Stock Deterioration, and Monty Defensive Sector Rotation. Generates a 0-100 composite score with risk zone classification. Use when user asks about market top risk, distribution days, defensive rotation, leadership breakdown, or whether to reduce equity exposure. Focuses on 2-8 week tactical timing signals for 10-20% corrections."
+    },
+    {
+      "name": "mean-reversion",
+      "path": "agiprolabs-trading/mean-reversion/SKILL.md",
+      "description": "Mean-reversion strategy tools including Hurst exponent, half-life estimation, z-score signals, ADF testing, and Ornstein-Uhlenbeck modeling"
+    },
+    {
+      "name": "mev-analysis",
+      "path": "agiprolabs-trading/mev-analysis/SKILL.md",
+      "description": "MEV exposure assessment, sandwich attack detection, and protection strategies for Solana DEX trading"
+    },
+    {
+      "name": "ohlcv-processing",
+      "path": "agiprolabs-trading/ohlcv-processing/SKILL.md",
+      "description": "Market data preparation including OHLCV resampling, gap handling, anomaly detection, normalization, and multi-source merging"
+    },
+    {
+      "name": "options-pricing",
+      "path": "agiprolabs-trading/options-pricing/SKILL.md",
+      "description": "[STUB] Options pricing models including Black-Scholes, binomial trees, Monte Carlo, implied volatility surfaces, and Greeks for crypto options"
+    },
+    {
+      "name": "options-strategy-advisor",
+      "path": "agiprolabs-trading/options-strategy-advisor/SKILL.md",
+      "description": "Options trading strategy analysis and simulation tool. Provides theoretical pricing using Black-Scholes model, Greeks calculation, strategy P/L simulation, and risk management guidance. Use when user requests options strategy analysis, covered calls, protective puts, spreads, iron condors, earnings plays, or options risk management. Includes volatility analysis, position sizing, and earnings-based strategy recommendations. Educational focus with practical trade simulation."
+    },
+    {
+      "name": "pair-trade-screener",
+      "path": "agiprolabs-trading/pair-trade-screener/SKILL.md",
+      "description": "Statistical arbitrage tool for identifying and analyzing pair trading opportunities. Detects cointegrated stock pairs within sectors, analyzes spread behavior, calculates z-scores, and provides entry/exit recommendations for market-neutral strategies. Use when user requests pair trading opportunities, statistical arbitrage screening, mean-reversion strategies, or market-neutral portfolio construction. Supports correlation analysis, cointegration testing, and spread backtesting."
+    },
+    {
+      "name": "pandas-ta",
+      "path": "agiprolabs-trading/pandas-ta/SKILL.md",
+      "description": "Technical analysis with 130+ indicators using pandas-ta for crypto market data"
+    },
+    {
+      "name": "parabolic-short-trade-planner",
+      "path": "agiprolabs-trading/parabolic-short-trade-planner/SKILL.md",
+      "description": "Screen US equities for parabolic exhaustion patterns and generate conditional pre-market short plans, then evaluate intraday trigger fires from live 5-min bars. Phase 1 daily 5-factor scorer (MA extension / acceleration / volume climax / range expansion / liquidity), Phase 2 per-candidate plans for ORL break / first-red 5-min / VWAP fail with explicit borrow / SSR / manual-confirmation gating, Phase 3 one-shot intraday FSM that detects trigger fires and resolves concrete share counts. Covers Phase 1 + Phase 2 + Phase 3."
+    },
+    {
+      "name": "pead-screener",
+      "path": "agiprolabs-trading/pead-screener/SKILL.md",
+      "description": "Screen post-earnings gap-up stocks for PEAD (Post-Earnings Announcement Drift) patterns. Analyzes weekly candle formation to detect red candle pullbacks and breakout signals. Supports two input modes - FMP earnings calendar (Mode A) or earnings-trade-analyzer JSON output (Mode B). Use when user asks about PEAD screening, post-earnings drift, earnings gap follow-through, red candle breakout patterns, or weekly earnings momentum setups."
+    },
+    {
+      "name": "polymarket-analyzer",
+      "path": "agiprolabs-trading/polymarket-analyzer/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "polymarket-live-executor",
+      "path": "agiprolabs-trading/polymarket-live-executor/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "polymarket-monitor",
+      "path": "agiprolabs-trading/polymarket-monitor/SKILL.md",
+      "description": ">-"
+    },
+    {
+      "name": "polymarket-paper-trader",
+      "path": "agiprolabs-trading/polymarket-paper-trader/SKILL.md",
+      "description": "Use this skill whenever the user wants to paper trade, simulate trades, virtual trading, demo mode, practice trading, backtest strategies, test strategy performance, use paper money, manage a virtual portfolio, track simulated P&L, or do risk-free trading on Polymarket prediction markets. Also use when the user asks about their portfolio, positions, trade history, or performance report for paper trading. This is the core trading engine — it executes simulated trades against real live Polymarket prices with zero financial risk."
+    },
+    {
+      "name": "polymarket-scanner",
+      "path": "agiprolabs-trading/polymarket-scanner/SKILL.md",
+      "description": ">-"
+    },
+    {
+      "name": "polymarket-strategy-advisor",
+      "path": "agiprolabs-trading/polymarket-strategy-advisor/SKILL.md",
+      "description": ">-"
+    },
+    {
+      "name": "portfolio-analytics",
+      "path": "agiprolabs-trading/portfolio-analytics/SKILL.md",
+      "description": "Portfolio-level performance measurement including return metrics, risk metrics, risk-adjusted ratios, rolling analysis, and HTML reports"
+    },
+    {
+      "name": "portfolio-manager",
+      "path": "agiprolabs-trading/portfolio-manager/SKILL.md",
+      "description": "Comprehensive portfolio analysis using Alpaca MCP Server integration to fetch holdings and positions, then analyze asset allocation, risk metrics, individual stock positions, diversification, and generate rebalancing recommendations. Use when user requests portfolio review, position analysis, risk assessment, performance evaluation, or rebalancing suggestions for their brokerage account."
+    },
+    {
+      "name": "position-sizer",
+      "path": "agiprolabs-trading/position-sizer/SKILL.md",
+      "description": "Calculate risk-based position sizes for long stock trades. Use when user asks about position sizing, how many shares to buy, risk per trade, Kelly criterion, ATR-based sizing, or portfolio risk allocation. Supports stop-loss distance calculation, volatility scaling, and sector concentration checks."
+    },
+    {
+      "name": "position-sizing",
+      "path": "agiprolabs-trading/position-sizing/SKILL.md",
+      "description": "Trade sizing methods including fixed fractional, volatility-adjusted, Kelly criterion, and liquidity-constrained sizing"
+    },
+    {
+      "name": "pumpfun-mechanics",
+      "path": "agiprolabs-trading/pumpfun-mechanics/SKILL.md",
+      "description": "PumpFun bonding curve math, graduation mechanics, instruction parsing, and PumpSwap migration"
+    },
+    {
+      "name": "raptor-dex",
+      "path": "agiprolabs-trading/raptor-dex/SKILL.md",
+      "description": "Self-hosted Solana DEX aggregator by SolanaTracker — multi-hop routing across 25+ DEXes, WebSocket streaming, Yellowstone Jet TPU submission, no rate limits"
+    },
+    {
+      "name": "regime-detection",
+      "path": "agiprolabs-trading/regime-detection/SKILL.md",
+      "description": "Market regime identification using volatility clustering, trend detection, and statistical methods for adaptive trading"
+    },
+    {
+      "name": "regulatory-reporting",
+      "path": "agiprolabs-trading/regulatory-reporting/SKILL.md",
+      "description": "[STUB] Regulatory report generation including IRS Form 8949, Schedule D, FinCEN FBAR, and state-specific crypto reporting requirements"
+    },
+    {
+      "name": "risk-management",
+      "path": "agiprolabs-trading/risk-management/SKILL.md",
+      "description": "Portfolio-level risk controls, drawdown management, exposure limits, and circuit breakers for crypto trading"
+    },
+    {
+      "name": "rl-execution",
+      "path": "agiprolabs-trading/rl-execution/SKILL.md",
+      "description": "Reinforcement learning for trade execution optimization including order splitting, adaptive timing, and impact minimization"
+    },
+    {
+      "name": "scenario-analyzer",
+      "path": "agiprolabs-trading/scenario-analyzer/SKILL.md",
+      "description": "|"
+    },
+    {
+      "name": "scientia-trading-signals",
+      "path": "scientia-trading-signals/SKILL.md",
+      "description": "Expert trading partner for Options, Stocks, Crypto, Commodities, Gold, Silver, Oil, VIX, and Forex. Covers technical analysis (Elliott Wave, Wyckoff, Fibonacci, Markov Regime, Turtle), options strategies (25+ including iron condors, credit spreads, naked puts, PMCC, gamma scalping), Greeks analysis, risk management, and sentiment signals. Use when analyzing any market, designing options trades, evaluating positions, calculating Greeks, discussing trading strategies, or asking about price action on any asset class. Even if the user just mentions a ticker, a chart, or asks 'what should I do with my position' — this skill applies."
+    },
+    {
+      "name": "sector-analyst",
+      "path": "agiprolabs-trading/sector-analyst/SKILL.md",
+      "description": "This skill should be used when analyzing sector rotation patterns and market cycle positioning. It fetches sector uptrend data from CSV (no API key required) and optionally accepts chart images for supplementary analysis. Use this skill when the user requests sector rotation analysis, cyclical vs defensive assessment, overbought/oversold identification, or market cycle phase estimation. All analysis and output are conducted in English."
+    },
+    {
+      "name": "sentiment-analysis",
+      "path": "agiprolabs-trading/sentiment-analysis/SKILL.md",
+      "description": "Market sentiment extraction from social media, news, and on-chain data including mention velocity, fear and greed indices, and influencer tracking"
+    },
+    {
+      "name": "shredstream",
+      "path": "agiprolabs-trading/shredstream/SKILL.md",
+      "description": "Pre-execution Solana transaction streaming via Jito ShredStream, Shyft RabbitStream, and Triton Deshred"
+    },
+    {
+      "name": "signal-classification",
+      "path": "agiprolabs-trading/signal-classification/SKILL.md",
+      "description": "ML trading signal classifiers using XGBoost and LightGBM with walk-forward validation, SHAP feature importance, and threshold optimization"
+    },
+    {
+      "name": "signal-postmortem",
+      "path": "agiprolabs-trading/signal-postmortem/SKILL.md",
+      "description": "Record and analyze post-trade outcomes for signals generated by edge pipeline and other skills. Track false positives, missed opportunities, and regime mismatches. Feed results back to edge-signal-aggregator weights and skill improvement backlog."
+    },
+    {
+      "name": "skill-designer",
+      "path": "agiprolabs-trading/skill-designer/SKILL.md",
+      "description": "Design new Claude skills from structured idea specifications. Use when the skill auto-generation pipeline needs to produce a Claude CLI prompt that creates a complete skill directory (SKILL.md, references, scripts, tests) following repository conventions."
+    },
+    {
+      "name": "skill-idea-miner",
+      "path": "agiprolabs-trading/skill-idea-miner/SKILL.md",
+      "description": "Mine Claude Code session logs for skill idea candidates. Use when running the weekly skill generation pipeline to extract, score, and backlog new skill ideas from recent coding sessions."
+    },
+    {
+      "name": "skill-integration-tester",
+      "path": "agiprolabs-trading/skill-integration-tester/SKILL.md",
+      "description": "Validate multi-skill workflows defined in CLAUDE.md by checking skill existence, inter-skill data contracts (JSON schema compatibility), file naming conventions, and handoff integrity. Use when adding new workflows, modifying skill outputs, or verifying pipeline health before release."
+    },
+    {
+      "name": "slippage-modeling",
+      "path": "agiprolabs-trading/slippage-modeling/SKILL.md",
+      "description": "Execution cost estimation, slippage curve modeling, and optimal trade sizing based on AMM liquidity depth"
+    },
+    {
+      "name": "solana-rpc",
+      "path": "agiprolabs-trading/solana-rpc/SKILL.md",
+      "description": "Direct Solana blockchain interaction via JSON-RPC — account lookups, token balances, transaction submission, and program queries"
+    },
+    {
+      "name": "solana-tx-building",
+      "path": "agiprolabs-trading/solana-tx-building/SKILL.md",
+      "description": "Solana transaction construction including instruction building, account resolution, compute budget, priority fees, and versioned transactions"
+    },
+    {
+      "name": "solanatracker-api",
+      "path": "agiprolabs-trading/solanatracker-api/SKILL.md",
+      "description": "Solana token data, PnL, risk scores, 1-second OHLCV, wallet analytics, and self-hosted swap execution via Raptor"
+    },
+    {
+      "name": "stanley-druckenmiller-investment",
+      "path": "agiprolabs-trading/stanley-druckenmiller-investment/SKILL.md",
+      "description": "Druckenmiller Strategy Synthesizer - Integrates 8 upstream skill outputs (Market Breadth, Uptrend Analysis, Market Top, Macro Regime, FTD Detector, VCP Screener, Theme Detector, CANSLIM Screener) into a unified conviction score (0-100), pattern classification, and allocation recommendation. Use when user asks about overall market conviction, portfolio positioning, asset allocation, strategy synthesis, or Druckenmiller-style analysis. Triggers on queries like \"What is my conviction level?\", \"How should I position?\", \"Run the strategy synthesizer\", \"Druckenmiller analysis\", \"総合的な市場判断\", \"確信度スコア\", \"ポートフォリオ配分\", \"ドラッケンミラー分析\"."
+    },
+    {
+      "name": "strategy-framework",
+      "path": "agiprolabs-trading/strategy-framework/SKILL.md",
+      "description": "Standardized template for defining trading strategies with entry rules, exit rules, position sizing, risk parameters, and performance criteria"
+    },
+    {
+      "name": "strategy-pivot-designer",
+      "path": "agiprolabs-trading/strategy-pivot-designer/SKILL.md",
+      "description": "Detect backtest iteration stagnation and generate structurally different strategy pivot proposals when parameter tuning reaches a local optimum."
+    },
+    {
+      "name": "strategy-research",
+      "path": "agiprolabs-trading/strategy-research/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "swing-trading",
+      "path": "agiprolabs-trading/swing-trading/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "sybil-detection",
+      "path": "agiprolabs-trading/sybil-detection/SKILL.md",
+      "description": "Coordinated wallet cluster detection, wash trading identification, and fake activity analysis for Solana tokens"
+    },
+    {
+      "name": "ta-lib",
+      "path": "agiprolabs-trading/ta-lib/SKILL.md",
+      "description": "C-optimized technical analysis with 150+ functions and 61 candlestick pattern recognition functions via TA-Lib"
+    },
+    {
+      "name": "tax-liability-tracking",
+      "path": "agiprolabs-trading/tax-liability-tracking/SKILL.md",
+      "description": "Real-time tax liability analysis for active crypto traders with proportional cost basis, gain classification, and tax-aware trading signals"
+    },
+    {
+      "name": "tax-loss-harvesting",
+      "path": "agiprolabs-trading/tax-loss-harvesting/SKILL.md",
+      "description": "Tax-loss harvesting opportunity identification, scoring, and planning with wash sale compliance and annual carryforward tracking"
+    },
+    {
+      "name": "technical-analyst",
+      "path": "agiprolabs-trading/technical-analyst/SKILL.md",
+      "description": "This skill should be used when analyzing weekly price charts for stocks, stock indices, cryptocurrencies, or forex pairs. Use this skill when the user provides chart images and requests technical analysis, trend identification, support/resistance levels, scenario planning, or probability assessments based purely on chart data without consideration of news or fundamental factors."
+    },
+    {
+      "name": "theme-detector",
+      "path": "agiprolabs-trading/theme-detector/SKILL.md",
+      "description": "Detect and analyze trending market themes across sectors. Use when user asks about current market themes, trending sectors, sector rotation, thematic investing, what themes are hot or cold, or wants to identify bullish and bearish market narratives with lifecycle analysis."
+    },
+    {
+      "name": "token-economics",
+      "path": "agiprolabs-trading/token-economics/SKILL.md",
+      "description": "Token supply dynamics, vesting analysis, inflation modeling, and valuation frameworks for crypto tokens"
+    },
+    {
+      "name": "token-holder-analysis",
+      "path": "agiprolabs-trading/token-holder-analysis/SKILL.md",
+      "description": "Token holder distribution, concentration metrics, insider detection, and supply analysis for Solana tokens"
+    },
+    {
+      "name": "trade-accounting",
+      "path": "agiprolabs-trading/trade-accounting/SKILL.md",
+      "description": "Double-entry bookkeeping for trading operations with ledger management, P&L statements, balance sheets, and cash flow reporting"
+    },
+    {
+      "name": "trade-hypothesis-ideator",
+      "path": "agiprolabs-trading/trade-hypothesis-ideator/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "trade-journal",
+      "path": "agiprolabs-trading/trade-journal/SKILL.md",
+      "description": "Structured trade logging, performance review, behavioral pattern detection, and strategy attribution for systematic improvement"
+    },
+    {
+      "name": "trade-memory",
+      "path": "agiprolabs-trading/trade-memory/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "trader-memory-core",
+      "path": "agiprolabs-trading/trader-memory-core/SKILL.md",
+      "description": "Track investment theses across their lifecycle — from screening idea to closed position with postmortem. Register theses from screener outputs, manage state transitions, attach position sizing, review due dates, and generate postmortem reports with P&L and MAE/MFE analysis. Trigger when user says \"register thesis\", \"track this idea\", \"thesis status\", \"review due\", \"close position\", \"postmortem\", or \"trading journal\"."
+    },
+    {
+      "name": "trading",
+      "path": "trading/SKILL.md",
+      "description": "Trading tools — MT5, Twelve Data, technical analysis, and market data pipeline"
+    },
+    {
+      "name": "trading-assistant",
+      "path": "agiprolabs-trading/trading-assistant/SKILL.md",
+      "description": ">"
+    },
+    {
+      "name": "trading-orchestrator",
+      "path": "trading-orchestrator/SKILL.md",
+      "description": "Intent router for trading workflows, memory retrieval, and safe daemon lifecycle."
+    },
+    {
+      "name": "trading-skills-navigator",
+      "path": "agiprolabs-trading/trading-skills-navigator/SKILL.md",
+      "description": ">-"
+    },
+    {
+      "name": "trading-visualization",
+      "path": "agiprolabs-trading/trading-visualization/SKILL.md",
+      "description": "Professional trading charts including candlesticks, equity curves, drawdowns, correlation heatmaps, and return distributions"
+    },
+    {
+      "name": "uptrend-analyzer",
+      "path": "agiprolabs-trading/uptrend-analyzer/SKILL.md",
+      "description": "Analyzes market breadth using Monty's Uptrend Ratio Dashboard data to diagnose the current market environment. Generates a 0-100 composite score from 5 components (breadth, sector participation, rotation, momentum, historical context). Use when asking about market breadth, uptrend ratios, or whether the market environment supports equity exposure. No API key required."
+    },
+    {
+      "name": "us-market-bubble-detector",
+      "path": "agiprolabs-trading/us-market-bubble-detector/SKILL.md",
+      "description": "Evaluates market bubble risk through quantitative data-driven analysis using the revised Minsky/Kindleberger framework v2.1. Prioritizes objective metrics (Put/Call, VIX, margin debt, breadth, IPO data) over subjective impressions. Features strict qualitative adjustment criteria with confirmation bias prevention. Supports practical investment decisions with mandatory data collection and mechanical scoring. Use when user asks about bubble risk, valuation concerns, or profit-taking timing."
+    },
+    {
+      "name": "us-stock-analysis",
+      "path": "agiprolabs-trading/us-stock-analysis/SKILL.md",
+      "description": "Comprehensive US stock analysis including fundamental analysis (financial metrics, business quality, valuation), technical analysis (indicators, chart patterns, support/resistance), stock comparisons, and investment report generation. Use when user requests analysis of US stock tickers (e.g., \"analyze AAPL\", \"compare TSLA vs NVDA\", \"give me a report on Microsoft\"), evaluation of financial metrics, technical chart analysis, or investment recommendations for American stocks."
+    },
+    {
+      "name": "value-dividend-screener",
+      "path": "agiprolabs-trading/value-dividend-screener/SKILL.md",
+      "description": "Screen US stocks for high-quality dividend opportunities combining value characteristics (P/E ratio under 20, P/B ratio under 2), attractive yields (3% or higher), and consistent growth (dividend/revenue/EPS trending up over 3 years). Supports two-stage screening using FINVIZ Elite API for efficient pre-filtering followed by FMP API for detailed analysis. Use when user requests dividend stock screening, income portfolio ideas, or quality value stocks with strong fundamentals."
+    },
+    {
+      "name": "vcp-screener",
+      "path": "agiprolabs-trading/vcp-screener/SKILL.md",
+      "description": "Screen S&P 500 stocks for Mark Minervini's Volatility Contraction Pattern (VCP). Identifies Stage 2 uptrend stocks forming tight bases with contracting volatility near breakout pivot points. Use when user requests VCP screening, Minervini-style setups, tight base patterns, volatility contraction breakout candidates, or Stage 2 momentum stock scanning."
+    },
+    {
+      "name": "vectorbt",
+      "path": "agiprolabs-trading/vectorbt/SKILL.md",
+      "description": "High-performance vectorized backtesting with parameter optimization, portfolio simulation, and rich performance metrics"
+    },
+    {
+      "name": "volatility-modeling",
+      "path": "agiprolabs-trading/volatility-modeling/SKILL.md",
+      "description": "Volatility estimation, forecasting, and regime classification using GARCH, EWMA, realized volatility, and volatility cones"
+    },
+    {
+      "name": "walk-forward-validation",
+      "path": "agiprolabs-trading/walk-forward-validation/SKILL.md",
+      "description": "Walk-forward validation framework for trading strategies and ML models with time-series-aware splits, overfit detection, and regime-aware validation"
+    },
+    {
+      "name": "wallet-profiling",
+      "path": "agiprolabs-trading/wallet-profiling/SKILL.md",
+      "description": "Behavioral classification, performance analysis, and trading style detection for Solana wallets"
+    },
+    {
+      "name": "wash-sale-detection",
+      "path": "agiprolabs-trading/wash-sale-detection/SKILL.md",
+      "description": "Wash sale detection under 2025 US crypto rules with 61-day window monitoring, disallowed loss tracking, and safe re-entry countdown"
+    },
+    {
+      "name": "whale-tracking",
+      "path": "agiprolabs-trading/whale-tracking/SKILL.md",
+      "description": "Large wallet monitoring, accumulation and distribution detection, and smart money signal generation for Solana tokens"
+    },
+    {
+      "name": "yellowstone-grpc",
+      "path": "agiprolabs-trading/yellowstone-grpc/SKILL.md",
+      "description": "Real-time Solana transaction and account streaming via Yellowstone gRPC (Geyser plugin)"
+    },
+    {
+      "name": "yield-analysis",
+      "path": "agiprolabs-trading/yield-analysis/SKILL.md",
+      "description": "DeFi yield evaluation including fee APR, real vs nominal yield, net APY after costs, and yield sustainability analysis"
+    }
+  ]
+}

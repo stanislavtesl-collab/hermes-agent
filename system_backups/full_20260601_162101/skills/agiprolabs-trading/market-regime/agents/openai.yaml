@@ -1,0 +1,3 @@
+display_name: Market Regime
+short_description: Daily market posture and regime detection
+default_prompt: Analyze today's market regime and exposure posture

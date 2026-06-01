@@ -1,0 +1,55 @@
+{
+  "updated_at": "2026-05-31T15:14:52.968122",
+  "platforms": {
+    "telegram": [
+      {
+        "id": "534151570",
+        "name": "Stylo",
+        "type": "dm",
+        "thread_id": null
+      },
+      {
+        "id": "6029111695",
+        "name": "Nitro",
+        "type": "dm",
+        "thread_id": null
+      },
+      {
+        "id": "313135086",
+        "name": "Yury $",
+        "type": "dm",
+        "thread_id": null
+      },
+      {
+        "id": "372226533",
+        "name": "Falken",
+        "type": "dm",
+        "thread_id": null
+      }
+    ],
+    "discord": [],
+    "whatsapp": [],
+    "slack": [],
+    "signal": [],
+    "mattermost": [],
+    "matrix": [],
+    "homeassistant": [],
+    "email": [],
+    "sms": [],
+    "dingtalk": [],
+    "msgraph_webhook": [],
+    "feishu": [],
+    "wecom": [],
+    "wecom_callback": [],
+    "weixin": [],
+    "bluebubbles": [],
+    "qqbot": [],
+    "yuanbao": [],
+    "google_chat": [],
+    "irc": [],
+    "line": [],
+    "ntfy": [],
+    "simplex": [],
+    "teams": []
+  }
+}

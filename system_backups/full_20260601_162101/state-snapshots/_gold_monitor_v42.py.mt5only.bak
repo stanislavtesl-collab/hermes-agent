@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""
+GOLD Monitor v4.2 — Multi-TF Scalper (M1)
+Сигнал при пробое M1 EMA20 в любую сторону
+Данные через MT5 (прямые, без Twelve Data)
+Пишет .gold_trade_signal.json — Executor забирает.
+"""
+import json, time, sys, os
+from datetime import datetime, timezone
+
+sys.path.insert(0, "/c/Program Files/Python312/Lib/site-packages")
+import MetaTrader5 as mt5
+
+# --- Config ---
+SIGNAL_FILE = "C:/Users/Administrator/Desktop/FxPro/.gold_trade_signal.json"
+HEARTBEAT_FILE = "C:/Users/Administrator/Desktop/FxPro/.monitor_v42_heartbeat.json"
+MT5_PATH = r"C:\Users\Administrator\Desktop\FxPro\terminal64.exe"
+SYMBOL = "GOLD"
+
+def ema(values, period):
+    if len(values) < period:
+        return [None] * len(values)
+    k = 2 / (period + 1)
+    result = [None] * (period - 1)
+    result.append(sum(values[:period]) / period)
+    for v in values[period:]:
+        result.append(v * k + result[-1] * (1 - k))
+    return result
+
+def check_signal():
+    """Проверяем M1 на пробой EMA20 через MT5"""
+    rates = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_M1, 0, 60)
+    if rates is None or len(rates) < 25:
+        return None
+
+    closes = [r[4] for r in rates]
+    highs = [r[2] for r in rates]
+    lows = [r[3] for r in rates]
+    volumes = [r[5] for r in rates]
+    last_c = closes[-1]
+    prev_c = closes[-2]
+
+    e20 = ema(closes, 20)
+    last_e20 = e20[-1]
+    prev_e20 = e20[-2]
+    if None in (last_e20, prev_e20):
+        return None
+
+    action = None
+    reason = ""
+
+    # SELL: цена была выше EMA20, пробила вниз
+    if prev_c > prev_e20 and last_c <= last_e20:
+        action = "SELL"
+        reason = f"M1 пробой EMA20 вниз ({prev_c:.1f}->{last_c:.1f}, EMA20={last_e20:.1f})"
+    elif prev_c > prev_e20 and last_c < prev_e20:
+        action = "SELL"
+        reason = f"M1 ниже prev EMA20 ({prev_c:.1f}->{last_c:.1f})"
+    # BUY: цена была ниже EMA20, пробила вверх
+    elif prev_c < prev_e20 and last_c >= last_e20:
+        action = "BUY"
+        reason = f"M1 пробой EMA20 вверх ({prev_c:.1f}->{last_c:.1f})"
+    elif prev_c < prev_e20 and last_c > prev_e20:
+        action = "BUY"
+        reason = f"M1 выше prev EMA20 ({prev_c:.1f}->{last_c:.1f})"
+
+    if action:
+        signal = {
+            "action": action,
+            "symbol": "GOLD",
+            "price": round(last_c, 2),
+            "lot": 0.03,
+            "sl": None,
+            "tp": None,
+            "trailing_offset": 30,
+            "trailing_step": 10,
+            "partial_close_pts": 15,
+            "partial_close_fraction": 0.3,
+            "reason": reason,
+            "trend_h1": None,
+            "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
+            "source": "monitor_v42"
+        }
+        with open(SIGNAL_FILE, "w") as f:
+            json.dump(signal, f)
+        return signal
+    return None
+
+def heartbeat():
+    hb = {"last_check": datetime.now(timezone.utc).isoformat(), "pid": os.getpid()}
+    with open(HEARTBEAT_FILE, "w") as f:
+        json.dump(hb, f)
+
+if __name__ == "__main__":
+    print(f"[Monitor v4.2] Starting, PID={os.getpid()}")
+    print(f"[Monitor v4.2] MT5 data source, M1 EMA20 breakout")
+    print(f"[Monitor v4.2] Trailing offset=30 step=10, partial 30%@+15pts")
+    print(f"[Monitor v4.2] Signal file: {SIGNAL_FILE}")
+    print("-" * 55)
+
+    if not mt5.initialize(path=MT5_PATH, timeout=15000):
+        print("MT5 init failed!")
+        sys.exit(1)
+    mt5.symbol_select(SYMBOL, True)
+    print(f"MT5 connected, account: {mt5.account_info().login}")
+
+    check_interval = 8
+    while True:
+        heartbeat()
+        try:
+            tick = mt5.symbol_info_tick(SYMBOL)
+            ts = datetime.now(timezone.utc).strftime("%H:%M:%S")
+
+            signal = check_signal()
+            if signal:
+                print(f"[{ts}] >>> SIGNAL {signal['action']} @ {signal['price']} | {signal['reason']}")
+            else:
+                print(f"[{ts}] No signal | {SYMBOL} @ {tick.bid:.2f}")
+
+        except Exception as e:
+            print(f"[{ts}] Error: {e}")
+
+        time.sleep(check_interval)
