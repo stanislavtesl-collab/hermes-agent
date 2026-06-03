@@ -1,0 +1,10 @@
+﻿{
+  "version": 1,
+  "allowed_mt5_account": 591712391,
+  "allowed_terminal_path": "C:\\Users\\Administrator\\Desktop\\FxPro\\terminal64.exe",
+  "forbidden_terminal_notes": [
+    "Do not use Atman Gibrid terminal for Hermes runtime",
+    "Do not use bare mt5.initialize() for runtime/trading"
+  ],
+  "trading_state": "PAUSED until owner explicitly starts navigation runtime"
+}

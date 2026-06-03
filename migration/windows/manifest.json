@@ -1,0 +1,12 @@
+﻿{
+    "generated_utc":  "2026-06-03T13:02:55.7751781Z",
+    "core_repo":  "https://github.com/stanislavtesl-collab/hermes-agent",
+    "skills_repo":  "https://github.com/stanislavtesl-collab/hermes-codex-skills",
+    "hermes_home":  "C:\\Users\\Administrator\\AppData\\Local\\hermes",
+    "agent_dir":  "C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent",
+    "live_skills_dir":  "C:\\Users\\Administrator\\AppData\\Local\\hermes\\skills",
+    "skills_count_live":  148,
+    "required_mt5_account":  591712391,
+    "pinned_terminal_path":  "C:\\Users\\Administrator\\Desktop\\FxPro\\terminal64.exe",
+    "secrets_policy":  "No real credentials in git; use migration/windows/env.example"
+}

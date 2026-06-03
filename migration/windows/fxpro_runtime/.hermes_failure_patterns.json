@@ -1,0 +1,41 @@
+{
+  "trades": 25,
+  "wins": 19,
+  "losses": 6,
+  "total_pnl": 10.18,
+  "wr": 0.76,
+  "by_magic": {
+    "1127": {
+      "sum": -17.730000000000004,
+      "count": 3,
+      "mean": -5.910000000000001
+    },
+    "123001": {
+      "sum": 29.499999999999996,
+      "count": 14,
+      "mean": 2.1071428571428568
+    },
+    "123456": {
+      "sum": 6.45,
+      "count": 4,
+      "mean": 1.6125
+    },
+    "123457": {
+      "sum": -8.040000000000001,
+      "count": 4,
+      "mean": -2.0100000000000002
+    }
+  },
+  "patterns": [
+    {
+      "name": "ASYMMETRIC_RISK",
+      "detail": "Avg loss $-9.59 > avg win $3.56 ×1.5",
+      "fix": "Increase atr_tp_mult"
+    },
+    {
+      "name": "TOXIC_HOURS",
+      "detail": "14:00 ($-19.44), 20:00 ($-8.06)",
+      "fix": "Add time-filter"
+    }
+  ]
+}

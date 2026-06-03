@@ -1,0 +1,2751 @@
+{
+  "generated_at": "2026-05-30T09:38:31.369974",
+  "days_history": 180,
+  "regime_distribution": {
+    "TREND_UP": 15740,
+    "TREND_DOWN": 14086,
+    "RANGE_VOLATILE": 2823,
+    "RANGE_QUIET": 1983,
+    "UNKNOWN": 49,
+    "BREAKOUT_UP": 29,
+    "BREAKOUT_DOWN": 9
+  },
+  "strategies": [
+    {
+      "id": "auto_0630",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_UP",
+            "TREND_DOWN",
+            "RANGE_QUIET",
+            "UNKNOWN",
+            "RANGE_VOLATILE"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 24,
+        "wr": 0.75,
+        "exp": 226.84542552614448,
+        "pf": 4.409310652014194,
+        "total": 5444.290212627468,
+        "dd": 365.173432924159,
+        "sharpe": 9.950721986970038,
+        "score": 179.17689522721602
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 40.54602648431319,
+          "wr": 0.5714285714285714,
+          "avg": 5.792289497759027
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 367.6235749889729,
+          "wr": 1.0,
+          "avg": 367.6235749889729
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 790.4794966218051,
+          "wr": 1.0,
+          "avg": 263.4931655406017
+        }
+      }
+    },
+    {
+      "id": "auto_0795",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_UP",
+            "TREND_DOWN",
+            "RANGE_QUIET",
+            "UNKNOWN",
+            "RANGE_VOLATILE"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 78,
+      "metrics": {
+        "n": 24,
+        "wr": 0.75,
+        "exp": 226.84542552614448,
+        "pf": 4.409310652014194,
+        "total": 5444.290212627468,
+        "dd": 365.173432924159,
+        "sharpe": 9.950721986970038,
+        "score": 179.17689522721602
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 40.54602648431319,
+          "wr": 0.5714285714285714,
+          "avg": 5.792289497759027
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 367.6235749889729,
+          "wr": 1.0,
+          "avg": 367.6235749889729
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 790.4794966218051,
+          "wr": 1.0,
+          "avg": 263.4931655406017
+        }
+      }
+    },
+    {
+      "id": "auto_0796",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_UP",
+            "TREND_DOWN",
+            "RANGE_QUIET",
+            "UNKNOWN",
+            "RANGE_VOLATILE"
+          ]
+        },
+        {
+          "indicator": "ema_dist_abs",
+          "op": ">=",
+          "value": 32.2
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 24,
+        "wr": 0.75,
+        "exp": 226.84542552614448,
+        "pf": 4.409310652014194,
+        "total": 5444.290212627468,
+        "dd": 365.173432924159,
+        "sharpe": 9.950721986970038,
+        "score": 179.17689522721602
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 40.54602648431319,
+          "wr": 0.5714285714285714,
+          "avg": 5.792289497759027
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 367.6235749889729,
+          "wr": 1.0,
+          "avg": 367.6235749889729
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 790.4794966218051,
+          "wr": 1.0,
+          "avg": 263.4931655406017
+        }
+      }
+    },
+    {
+      "id": "auto_0810",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "atr_pct",
+          "op": ">=",
+          "value": 0.7
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 24,
+        "wr": 0.75,
+        "exp": 226.84542552614448,
+        "pf": 4.409310652014194,
+        "total": 5444.290212627468,
+        "dd": 365.173432924159,
+        "sharpe": 9.950721986970038,
+        "score": 179.17689522721602
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 40.54602648431319,
+          "wr": 0.5714285714285714,
+          "avg": 5.792289497759027
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 367.6235749889729,
+          "wr": 1.0,
+          "avg": 367.6235749889729
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 790.4794966218051,
+          "wr": 1.0,
+          "avg": 263.4931655406017
+        }
+      }
+    },
+    {
+      "id": "auto_0811",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<",
+          "value": 0.1
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 63,
+      "metrics": {
+        "n": 24,
+        "wr": 0.75,
+        "exp": 226.84542552614448,
+        "pf": 4.409310652014194,
+        "total": 5444.290212627468,
+        "dd": 365.173432924159,
+        "sharpe": 9.950721986970038,
+        "score": 179.17689522721602
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 40.54602648431319,
+          "wr": 0.5714285714285714,
+          "avg": 5.792289497759027
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 367.6235749889729,
+          "wr": 1.0,
+          "avg": 367.6235749889729
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 790.4794966218051,
+          "wr": 1.0,
+          "avg": 263.4931655406017
+        }
+      }
+    },
+    {
+      "id": "auto_0818",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.1
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 42.2
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 24,
+        "wr": 0.75,
+        "exp": 226.84542552614448,
+        "pf": 4.409310652014194,
+        "total": 5444.290212627468,
+        "dd": 365.173432924159,
+        "sharpe": 9.950721986970038,
+        "score": 179.17689522721602
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 40.54602648431319,
+          "wr": 0.5714285714285714,
+          "avg": 5.792289497759027
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 367.6235749889729,
+          "wr": 1.0,
+          "avg": 367.6235749889729
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 790.4794966218051,
+          "wr": 1.0,
+          "avg": 263.4931655406017
+        }
+      }
+    },
+    {
+      "id": "auto_0927",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": "<",
+          "value": 0.6
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": "<=",
+          "value": 2.4
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 71.7
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.2
+        }
+      ],
+      "sl_atr_mult": 1.27,
+      "tp_atr_mult": 1.45,
+      "hold_max_bars": 53,
+      "metrics": {
+        "n": 25,
+        "wr": 0.68,
+        "exp": 176.44262658933403,
+        "pf": 3.3613765113082796,
+        "total": 4411.065664733351,
+        "dd": 311.3811300233665,
+        "sharpe": 8.033569572219717,
+        "score": 145.82704130587152
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 14,
+          "wins": 10,
+          "pnl": 3867.7222265769815,
+          "wr": 0.7142857142857143,
+          "avg": 276.26587332692725
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 111.23088629558515,
+          "wr": 0.5714285714285714,
+          "avg": 15.890126613655022
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -311.3811300233665,
+          "wr": 0.0,
+          "avg": -311.3811300233665
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 743.4936818841506,
+          "wr": 1.0,
+          "avg": 247.83122729471688
+        }
+      }
+    },
+    {
+      "id": "auto_0925",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": "<",
+          "value": 0.6
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": "<=",
+          "value": 2.4
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 71.7
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.2
+        },
+        {
+          "indicator": "regime",
+          "op": "in",
+          "value": [
+            "BREAKOUT_DOWN"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.33,
+      "tp_atr_mult": 1.5,
+      "hold_max_bars": 51,
+      "metrics": {
+        "n": 25,
+        "wr": 0.68,
+        "exp": 181.74687371364672,
+        "pf": 3.324654939286198,
+        "total": 4543.671842841168,
+        "dd": 325.8794511268315,
+        "sharpe": 7.973858561746769,
+        "score": 145.09724970091827
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 14,
+          "wins": 10,
+          "pnl": 3989.9065232695575,
+          "wr": 0.7142857142857143,
+          "avg": 284.9933230906827
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 110.04785840450131,
+          "wr": 0.5714285714285714,
+          "avg": 15.721122629214474
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -325.8794511268315,
+          "wr": 0.0,
+          "avg": -325.8794511268315
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 769.5969122939405,
+          "wr": 1.0,
+          "avg": 256.53230409798016
+        }
+      }
+    },
+    {
+      "id": "auto_0797",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_UP",
+            "TREND_DOWN",
+            "RANGE_QUIET",
+            "UNKNOWN",
+            "RANGE_VOLATILE"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.7,
+      "tp_atr_mult": 1.31,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 24,
+        "wr": 0.75,
+        "exp": 186.01370420454418,
+        "pf": 3.9503581868809423,
+        "total": 4464.32890090906,
+        "dd": 397.54156151990355,
+        "sharpe": 9.22860151278592,
+        "score": 137.36701485024818
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 3367.959490848283,
+          "wr": 0.7692307692307693,
+          "avg": 259.07380698832947
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 113.91809589838522,
+          "wr": 0.5714285714285714,
+          "avg": 16.274013699769316
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 312.04667742568563,
+          "wr": 1.0,
+          "avg": 312.04667742568563
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 670.4046367367064,
+          "wr": 1.0,
+          "avg": 223.4682122455688
+        }
+      }
+    },
+    {
+      "id": "auto_0812",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "regime",
+          "op": "in",
+          "value": [
+            "BREAKOUT_UP",
+            "TREND_UP",
+            "BREAKOUT_DOWN",
+            "RANGE_VOLATILE"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 63,
+      "metrics": {
+        "n": 27,
+        "wr": 0.6666666666666666,
+        "exp": 172.25868483635693,
+        "pf": 2.9458601900386046,
+        "total": 4650.984490581637,
+        "dd": 365.173432924159,
+        "sharpe": 7.285485056401814,
+        "score": 128.27937842710332
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -752.7596955615172,
+          "wr": 0.4,
+          "avg": -75.27596955615172
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 367.6235749889729,
+          "wr": 1.0,
+          "avg": 367.6235749889729
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 790.4794966218051,
+          "wr": 1.0,
+          "avg": 263.4931655406017
+        }
+      }
+    },
+    {
+      "id": "auto_0681",
+      "entry_long": [
+        {
+          "indicator": "rsi15",
+          "op": "<",
+          "value": 16.1
+        },
+        {
+          "indicator": "pullback",
+          "op": "<=",
+          "value": 2.6
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": "<",
+          "value": -5.7
+        },
+        {
+          "indicator": "rsi15",
+          "op": ">",
+          "value": 82.7
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 1.4
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": ">",
+          "value": 4.4
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.1
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_DOWN",
+            "UNKNOWN",
+            "TREND_UP"
+          ]
+        }
+      ],
+      "sl_atr_mult": 0.46,
+      "tp_atr_mult": 1.42,
+      "hold_max_bars": 181,
+      "metrics": {
+        "n": 16,
+        "wr": 0.625,
+        "exp": 149.931969439338,
+        "pf": 6.856439421441731,
+        "total": 2398.911511029408,
+        "dd": 197.83549466053591,
+        "sharpe": 10.35536189124818,
+        "score": 125.85132743347634
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 11,
+          "wins": 7,
+          "pnl": 2067.630748641548,
+          "wr": 0.6363636363636364,
+          "avg": 187.96643169468618
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 419.42470211966065,
+          "wr": 0.75,
+          "avg": 104.85617552991516
+        },
+        "BREAKOUT_UP": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -88.14393973180086,
+          "wr": 0.0,
+          "avg": -88.14393973180086
+        }
+      }
+    },
+    {
+      "id": "auto_0801",
+      "entry_long": [
+        {
+          "indicator": "rsi15",
+          "op": "<",
+          "value": 16.1
+        },
+        {
+          "indicator": "pullback",
+          "op": "<=",
+          "value": 2.6
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": "<",
+          "value": -5.7
+        },
+        {
+          "indicator": "rsi15",
+          "op": ">",
+          "value": 82.7
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 1.4
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": ">",
+          "value": 4.4
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.1
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_DOWN",
+            "UNKNOWN",
+            "TREND_UP"
+          ]
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bullish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 0.46,
+      "tp_atr_mult": 1.42,
+      "hold_max_bars": 181,
+      "metrics": {
+        "n": 16,
+        "wr": 0.625,
+        "exp": 149.931969439338,
+        "pf": 6.856439421441731,
+        "total": 2398.911511029408,
+        "dd": 197.83549466053591,
+        "sharpe": 10.35536189124818,
+        "score": 125.85132743347634
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 11,
+          "wins": 7,
+          "pnl": 2067.630748641548,
+          "wr": 0.6363636363636364,
+          "avg": 187.96643169468618
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 419.42470211966065,
+          "wr": 0.75,
+          "avg": 104.85617552991516
+        },
+        "BREAKOUT_UP": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -88.14393973180086,
+          "wr": 0.0,
+          "avg": -88.14393973180086
+        }
+      }
+    },
+    {
+      "id": "auto_0802",
+      "entry_long": [
+        {
+          "indicator": "rsi15",
+          "op": "<",
+          "value": 16.1
+        },
+        {
+          "indicator": "pullback",
+          "op": "<=",
+          "value": 2.6
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": "<",
+          "value": -5.7
+        },
+        {
+          "indicator": "rsi15",
+          "op": ">",
+          "value": 82.7
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 1.4
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": ">",
+          "value": 4.4
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.1
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_DOWN",
+            "UNKNOWN",
+            "TREND_UP"
+          ]
+        }
+      ],
+      "sl_atr_mult": 0.46,
+      "tp_atr_mult": 1.42,
+      "hold_max_bars": 166,
+      "metrics": {
+        "n": 16,
+        "wr": 0.625,
+        "exp": 149.931969439338,
+        "pf": 6.856439421441731,
+        "total": 2398.911511029408,
+        "dd": 197.83549466053591,
+        "sharpe": 10.35536189124818,
+        "score": 125.85132743347634
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 11,
+          "wins": 7,
+          "pnl": 2067.630748641548,
+          "wr": 0.6363636363636364,
+          "avg": 187.96643169468618
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 419.42470211966065,
+          "wr": 0.75,
+          "avg": 104.85617552991516
+        },
+        "BREAKOUT_UP": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -88.14393973180086,
+          "wr": 0.0,
+          "avg": -88.14393973180086
+        }
+      }
+    },
+    {
+      "id": "auto_0813",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 63,
+      "metrics": {
+        "n": 28,
+        "wr": 0.6428571428571429,
+        "exp": 156.34731112313258,
+        "pf": 2.6436267012485,
+        "total": 4377.724711447712,
+        "dd": 365.173432924159,
+        "sharpe": 6.57224401516867,
+        "score": 114.33231647652829
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 625.2908308010155,
+          "wr": 0.75,
+          "avg": 156.3227077002539
+        },
+        "TREND_UP": {
+          "n": 9,
+          "wins": 4,
+          "pnl": -579.5595725582443,
+          "wr": 0.4444444444444444,
+          "avg": -64.39550806202715
+        },
+        "TREND_DOWN": {
+          "n": 2,
+          "wins": 1,
+          "pnl": 86.35233867256466,
+          "wr": 0.5,
+          "avg": 43.17616933628233
+        }
+      }
+    },
+    {
+      "id": "auto_0800",
+      "entry_long": [
+        {
+          "indicator": "rsi15",
+          "op": "<",
+          "value": 16.1
+        },
+        {
+          "indicator": "pullback",
+          "op": "<=",
+          "value": 2.6
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": "<",
+          "value": -5.7
+        },
+        {
+          "indicator": "rsi15",
+          "op": ">",
+          "value": 82.7
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 1.4
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.1
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_DOWN",
+            "UNKNOWN",
+            "TREND_UP"
+          ]
+        }
+      ],
+      "sl_atr_mult": 0.46,
+      "tp_atr_mult": 1.42,
+      "hold_max_bars": 181,
+      "metrics": {
+        "n": 17,
+        "wr": 0.5882352941176471,
+        "exp": 137.29206949811862,
+        "pf": 5.918106758498788,
+        "total": 2333.9651814680165,
+        "dd": 197.83549466053591,
+        "sharpe": 9.532222432856791,
+        "score": 111.8007036945351
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 11,
+          "wins": 7,
+          "pnl": 2067.630748641548,
+          "wr": 0.6363636363636364,
+          "avg": 187.96643169468618
+        },
+        "RANGE_QUIET": {
+          "n": 5,
+          "wins": 3,
+          "pnl": 354.47837255826926,
+          "wr": 0.6,
+          "avg": 70.89567451165385
+        },
+        "BREAKOUT_UP": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -88.14393973180086,
+          "wr": 0.0,
+          "avg": -88.14393973180086
+        }
+      }
+    },
+    {
+      "id": "auto_0633",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.59,
+      "tp_atr_mult": 1.6,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 30,
+        "wr": 0.6333333333333333,
+        "exp": 150.8992802106759,
+        "pf": 2.5597070960485606,
+        "total": 4526.978406320277,
+        "dd": 372.1094604803802,
+        "sharpe": 6.261274898717588,
+        "score": 110.87597160010613
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4432.715397288279,
+          "wr": 0.7692307692307693,
+          "avg": 340.97810748371376
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 2,
+          "pnl": 196.51964620210856,
+          "wr": 0.6666666666666666,
+          "avg": 65.50654873403619
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 648.0811689138154,
+          "wr": 0.75,
+          "avg": 162.02029222845385
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -750.3378060839259,
+          "wr": 0.4,
+          "avg": -75.03378060839259
+        }
+      }
+    },
+    {
+      "id": "auto_0543",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 30,
+        "wr": 0.6333333333333333,
+        "exp": 143.2012460272399,
+        "pf": 2.5065435556057136,
+        "total": 4296.037380817197,
+        "dd": 365.173432924159,
+        "sharpe": 6.138154648631617,
+        "score": 106.78859367636682
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 2,
+          "pnl": 183.20579764691865,
+          "wr": 0.6666666666666666,
+          "avg": 61.06859921563955
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 619.9501641994193,
+          "wr": 0.75,
+          "avg": 154.98754104985483
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -752.7596955615172,
+          "wr": 0.4,
+          "avg": -75.27596955615172
+        }
+      }
+    },
+    {
+      "id": "auto_0631",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 63,
+      "metrics": {
+        "n": 30,
+        "wr": 0.6333333333333333,
+        "exp": 143.2012460272399,
+        "pf": 2.5065435556057136,
+        "total": 4296.037380817197,
+        "dd": 365.173432924159,
+        "sharpe": 6.138154648631617,
+        "score": 106.78859367636682
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 2,
+          "pnl": 183.20579764691865,
+          "wr": 0.6666666666666666,
+          "avg": 61.06859921563955
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 619.9501641994193,
+          "wr": 0.75,
+          "avg": 154.98754104985483
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -752.7596955615172,
+          "wr": 0.4,
+          "avg": -75.27596955615172
+        }
+      }
+    },
+    {
+      "id": "auto_0632",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.1
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 68,
+      "metrics": {
+        "n": 30,
+        "wr": 0.6333333333333333,
+        "exp": 143.2012460272399,
+        "pf": 2.5065435556057136,
+        "total": 4296.037380817197,
+        "dd": 365.173432924159,
+        "sharpe": 6.138154648631617,
+        "score": 106.78859367636682
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 2,
+          "pnl": 183.20579764691865,
+          "wr": 0.6666666666666666,
+          "avg": 61.06859921563955
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 619.9501641994193,
+          "wr": 0.75,
+          "avg": 154.98754104985483
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -752.7596955615172,
+          "wr": 0.4,
+          "avg": -75.27596955615172
+        }
+      }
+    },
+    {
+      "id": "auto_0808",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.5
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 30,
+      "metrics": {
+        "n": 30,
+        "wr": 0.6333333333333333,
+        "exp": 143.2012460272399,
+        "pf": 2.5065435556057136,
+        "total": 4296.037380817197,
+        "dd": 365.173432924159,
+        "sharpe": 6.138154648631617,
+        "score": 106.78859367636682
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 2,
+          "pnl": 183.20579764691865,
+          "wr": 0.6666666666666666,
+          "avg": 61.06859921563955
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 619.9501641994193,
+          "wr": 0.75,
+          "avg": 154.98754104985483
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -752.7596955615172,
+          "wr": 0.4,
+          "avg": -75.27596955615172
+        }
+      }
+    },
+    {
+      "id": "auto_0815",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.1
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 79,
+      "metrics": {
+        "n": 30,
+        "wr": 0.6333333333333333,
+        "exp": 143.2012460272399,
+        "pf": 2.5065435556057136,
+        "total": 4296.037380817197,
+        "dd": 365.173432924159,
+        "sharpe": 6.138154648631617,
+        "score": 106.78859367636682
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 2,
+          "pnl": 183.20579764691865,
+          "wr": 0.6666666666666666,
+          "avg": 61.06859921563955
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 619.9501641994193,
+          "wr": 0.75,
+          "avg": 154.98754104985483
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -752.7596955615172,
+          "wr": 0.4,
+          "avg": -75.27596955615172
+        }
+      }
+    },
+    {
+      "id": "auto_0816",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.6
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 5.1
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<",
+          "value": 59.6
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bearish"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.56,
+      "tp_atr_mult": 1.54,
+      "hold_max_bars": 34,
+      "metrics": {
+        "n": 30,
+        "wr": 0.6333333333333333,
+        "exp": 143.2012460272399,
+        "pf": 2.5065435556057136,
+        "total": 4296.037380817197,
+        "dd": 365.173432924159,
+        "sharpe": 6.138154648631617,
+        "score": 106.78859367636682
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 13,
+          "wins": 10,
+          "pnl": 4245.641114532376,
+          "wr": 0.7692307692307693,
+          "avg": 326.587778040952
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 2,
+          "pnl": 183.20579764691865,
+          "wr": 0.6666666666666666,
+          "avg": 61.06859921563955
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 619.9501641994193,
+          "wr": 0.75,
+          "avg": 154.98754104985483
+        },
+        "TREND_UP": {
+          "n": 10,
+          "wins": 4,
+          "pnl": -752.7596955615172,
+          "wr": 0.4,
+          "avg": -75.27596955615172
+        }
+      }
+    },
+    {
+      "id": "auto_0799",
+      "entry_long": [
+        {
+          "indicator": "rsi15",
+          "op": "<",
+          "value": 16.1
+        },
+        {
+          "indicator": "pullback",
+          "op": "<=",
+          "value": 2.6
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": "<",
+          "value": -5.7
+        },
+        {
+          "indicator": "rsi15",
+          "op": ">",
+          "value": 82.7
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 1.4
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": ">",
+          "value": 4.4
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.1
+        },
+        {
+          "indicator": "regime",
+          "op": "not_in",
+          "value": [
+            "TREND_DOWN",
+            "UNKNOWN",
+            "TREND_UP"
+          ]
+        }
+      ],
+      "sl_atr_mult": 0.49,
+      "tp_atr_mult": 1.76,
+      "hold_max_bars": 181,
+      "metrics": {
+        "n": 16,
+        "wr": 0.5625,
+        "exp": 137.41895866411414,
+        "pf": 5.526968957469187,
+        "total": 2198.7033386258263,
+        "dd": 209.8573747470582,
+        "sharpe": 10.706269150664827,
+        "score": 99.78547622003704
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 11,
+          "wins": 6,
+          "pnl": 1859.2092527980985,
+          "wr": 0.5454545454545454,
+          "avg": 169.01902298164532
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 433.093065107234,
+          "wr": 0.75,
+          "avg": 108.2732662768085
+        },
+        "BREAKOUT_UP": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -93.59897927950624,
+          "wr": 0.0,
+          "avg": -93.59897927950624
+        }
+      }
+    },
+    {
+      "id": "auto_0894",
+      "entry_long": [
+        {
+          "indicator": "pullback",
+          "op": "<=",
+          "value": 6.6
+        },
+        {
+          "indicator": "ema_dist_abs",
+          "op": ">",
+          "value": 28.3
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": ">",
+          "value": 2.7
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "bullish",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "rsi15",
+          "op": "<",
+          "value": 31.3
+        }
+      ],
+      "sl_atr_mult": 0.93,
+      "tp_atr_mult": 2.23,
+      "hold_max_bars": 118,
+      "metrics": {
+        "n": 42,
+        "wr": 0.5952380952380952,
+        "exp": 385.9853438274137,
+        "pf": 3.5108838179806434,
+        "total": 16211.384440751377,
+        "dd": 1502.4045473977294,
+        "sharpe": 7.54219443797403,
+        "score": 92.92102872143313
+      },
+      "by_regime": {
+        "TREND_DOWN": {
+          "n": 26,
+          "wins": 15,
+          "pnl": 9820.923184798547,
+          "wr": 0.5769230769230769,
+          "avg": 377.7278147999441
+        },
+        "RANGE_VOLATILE": {
+          "n": 12,
+          "wins": 8,
+          "pnl": 6081.735531161163,
+          "wr": 0.6666666666666666,
+          "avg": 506.8112942634302
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 2,
+          "pnl": 308.72572479166774,
+          "wr": 0.5,
+          "avg": 77.18143119791694
+        }
+      }
+    },
+    {
+      "id": "auto_0685",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        },
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 8.6
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": "<",
+          "value": 0.6
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": "<=",
+          "value": 2.4
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 71.7
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.2
+        }
+      ],
+      "sl_atr_mult": 0.97,
+      "tp_atr_mult": 1.36,
+      "hold_max_bars": 39,
+      "metrics": {
+        "n": 16,
+        "wr": 0.5625,
+        "exp": 160.0813286277854,
+        "pf": 3.102268958286186,
+        "total": 2561.3012580445666,
+        "dd": 296.6736751700755,
+        "sharpe": 7.060782184839729,
+        "score": 90.80082999157612
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 10,
+          "wins": 6,
+          "pnl": 2409.3778635385297,
+          "wr": 0.6,
+          "avg": 240.93778635385297
+        },
+        "RANGE_QUIET": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 229.15156495724477,
+          "wr": 1.0,
+          "avg": 229.15156495724477
+        },
+        "TREND_UP": {
+          "n": 5,
+          "wins": 2,
+          "pnl": -77.22817045120792,
+          "wr": 0.4,
+          "avg": -15.445634090241583
+        }
+      }
+    },
+    {
+      "id": "auto_0819",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        },
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 8.6
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": "<",
+          "value": 0.6
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": "<=",
+          "value": 2.4
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 71.7
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.2
+        }
+      ],
+      "sl_atr_mult": 0.97,
+      "tp_atr_mult": 1.36,
+      "hold_max_bars": 39,
+      "metrics": {
+        "n": 16,
+        "wr": 0.5625,
+        "exp": 160.0813286277854,
+        "pf": 3.102268958286186,
+        "total": 2561.3012580445666,
+        "dd": 296.6736751700755,
+        "sharpe": 7.060782184839729,
+        "score": 90.80082999157612
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 10,
+          "wins": 6,
+          "pnl": 2409.3778635385297,
+          "wr": 0.6,
+          "avg": 240.93778635385297
+        },
+        "RANGE_QUIET": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 229.15156495724477,
+          "wr": 1.0,
+          "avg": 229.15156495724477
+        },
+        "TREND_UP": {
+          "n": 5,
+          "wins": 2,
+          "pnl": -77.22817045120792,
+          "wr": 0.4,
+          "avg": -15.445634090241583
+        }
+      }
+    },
+    {
+      "id": "auto_0820",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        },
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 8.6
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": "<",
+          "value": 0.6
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": ">",
+          "value": 2.4
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 71.7
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.2
+        }
+      ],
+      "sl_atr_mult": 0.97,
+      "tp_atr_mult": 1.36,
+      "hold_max_bars": 39,
+      "metrics": {
+        "n": 16,
+        "wr": 0.5625,
+        "exp": 160.0813286277854,
+        "pf": 3.102268958286186,
+        "total": 2561.3012580445666,
+        "dd": 296.6736751700755,
+        "sharpe": 7.060782184839729,
+        "score": 90.80082999157612
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 10,
+          "wins": 6,
+          "pnl": 2409.3778635385297,
+          "wr": 0.6,
+          "avg": 240.93778635385297
+        },
+        "RANGE_QUIET": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 229.15156495724477,
+          "wr": 1.0,
+          "avg": 229.15156495724477
+        },
+        "TREND_UP": {
+          "n": 5,
+          "wins": 2,
+          "pnl": -77.22817045120792,
+          "wr": 0.4,
+          "avg": -15.445634090241583
+        }
+      }
+    },
+    {
+      "id": "auto_0821",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        },
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 8.6
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": "<",
+          "value": 0.6
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": "<=",
+          "value": 2.4
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 71.7
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.2
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 58.1
+        }
+      ],
+      "sl_atr_mult": 0.97,
+      "tp_atr_mult": 1.36,
+      "hold_max_bars": 39,
+      "metrics": {
+        "n": 16,
+        "wr": 0.5625,
+        "exp": 160.0813286277854,
+        "pf": 3.102268958286186,
+        "total": 2561.3012580445666,
+        "dd": 296.6736751700755,
+        "sharpe": 7.060782184839729,
+        "score": 90.80082999157612
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 10,
+          "wins": 6,
+          "pnl": 2409.3778635385297,
+          "wr": 0.6,
+          "avg": 240.93778635385297
+        },
+        "RANGE_QUIET": {
+          "n": 1,
+          "wins": 1,
+          "pnl": 229.15156495724477,
+          "wr": 1.0,
+          "avg": 229.15156495724477
+        },
+        "TREND_UP": {
+          "n": 5,
+          "wins": 2,
+          "pnl": -77.22817045120792,
+          "wr": 0.4,
+          "avg": -15.445634090241583
+        }
+      }
+    },
+    {
+      "id": "auto_0827",
+      "entry_long": [
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 38.9
+        },
+        {
+          "indicator": "alligator",
+          "op": "not_in",
+          "value": [
+            "sleeping",
+            "bearish"
+          ]
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.0
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": "<",
+          "value": 0.6
+        },
+        {
+          "indicator": "vol_ratio",
+          "op": "<=",
+          "value": 2.4
+        },
+        {
+          "indicator": "rsi5",
+          "op": "<=",
+          "value": 71.7
+        },
+        {
+          "indicator": "atr_pct",
+          "op": "<=",
+          "value": 0.2
+        },
+        {
+          "indicator": "regime",
+          "op": "in",
+          "value": [
+            "BREAKOUT_DOWN"
+          ]
+        }
+      ],
+      "sl_atr_mult": 1.17,
+      "tp_atr_mult": 1.53,
+      "hold_max_bars": 39,
+      "metrics": {
+        "n": 26,
+        "wr": 0.6538461538461539,
+        "exp": 177.4242458895542,
+        "pf": 3.2874225621186683,
+        "total": 4613.030393128409,
+        "dd": 567.9450268519795,
+        "sharpe": 7.790944323881861,
+        "score": 88.55936517862739
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 15,
+          "wins": 10,
+          "pnl": 3931.8218597825035,
+          "wr": 0.6666666666666666,
+          "avg": 262.12145731883356
+        },
+        "TREND_UP": {
+          "n": 7,
+          "wins": 4,
+          "pnl": 183.1669443236624,
+          "wr": 0.5714285714285714,
+          "avg": 26.16670633195177
+        },
+        "TREND_DOWN": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -287.2172615175823,
+          "wr": 0.0,
+          "avg": -287.2172615175823
+        },
+        "RANGE_QUIET": {
+          "n": 3,
+          "wins": 3,
+          "pnl": 785.2588505398253,
+          "wr": 1.0,
+          "avg": 261.75295017994176
+        }
+      }
+    },
+    {
+      "id": "auto_0658",
+      "entry_long": [
+        {
+          "indicator": "rsi15",
+          "op": ">",
+          "value": 16.1
+        },
+        {
+          "indicator": "pullback",
+          "op": "<=",
+          "value": 2.6
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": "<",
+          "value": -5.7
+        },
+        {
+          "indicator": "rsi15",
+          "op": ">",
+          "value": 82.7
+        }
+      ],
+      "entry_short": [
+        {
+          "indicator": "streak",
+          "op": ">",
+          "value": 1.4
+        },
+        {
+          "indicator": "vwap_dist",
+          "op": ">",
+          "value": 4.4
+        },
+        {
+          "indicator": "pullback",
+          "op": ">=",
+          "value": 7.1
+        }
+      ],
+      "sl_atr_mult": 0.45,
+      "tp_atr_mult": 1.67,
+      "hold_max_bars": 181,
+      "metrics": {
+        "n": 34,
+        "wr": 0.5,
+        "exp": 109.64898940784015,
+        "pf": 3.992387429467688,
+        "total": 3728.065639866565,
+        "dd": 261.9708497673473,
+        "sharpe": 8.255657324996015,
+        "score": 88.31622532124588
+      },
+      "by_regime": {
+        "RANGE_VOLATILE": {
+          "n": 11,
+          "wins": 6,
+          "pnl": 1795.626931401237,
+          "wr": 0.5454545454545454,
+          "avg": 163.238811945567
+        },
+        "RANGE_QUIET": {
+          "n": 4,
+          "wins": 3,
+          "pnl": 420.5500970562589,
+          "wr": 0.75,
+          "avg": 105.13752426406472
+        },
+        "TREND_UP": {
+          "n": 15,
+          "wins": 8,
+          "pnl": 1857.0207173236213,
+          "wr": 0.5333333333333333,
+          "avg": 123.80138115490809
+        },
+        "TREND_DOWN": {
+          "n": 3,
+          "wins": 0,
+          "pnl": -258.8065126986712,
+          "wr": 0.0,
+          "avg": -86.26883756622374
+        },
+        "BREAKOUT_UP": {
+          "n": 1,
+          "wins": 0,
+          "pnl": -86.32559321588087,
+          "wr": 0.0,
+          "avg": -86.32559321588087
+        }
+      }
+    }
+  ]
+}
